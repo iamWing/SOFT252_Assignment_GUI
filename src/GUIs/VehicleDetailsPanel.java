@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package GUIs;
-
+import models.Car;
 /**
  *
  * @author Admin
@@ -16,6 +16,12 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
      */
     public VehicleDetailsPanel() {
         initComponents();
+    }
+    
+    public void loadVehicle(Car vehicle)
+    {
+        txtDescription.setText(vehicle.getDescription());
+        Car temp = vehicle;
     }
 
     /**
@@ -30,15 +36,15 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        txtInitDamageStatus = new javax.swing.JTextField();
-        txtInitNextService = new javax.swing.JTextField();
+        txtDamageStatus = new javax.swing.JTextField();
+        txtNextService = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        txtInitInsuranceStatus = new javax.swing.JTextField();
-        txtInitVehicleType = new javax.swing.JTextField();
-        txtInitRegistration = new javax.swing.JTextField();
+        txtInsuranceStatus = new javax.swing.JTextField();
+        txtVehicleType = new javax.swing.JTextField();
+        txtRegistration = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtInitDescription = new javax.swing.JTextField();
+        txtDescription = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -49,23 +55,23 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
         jLabel14.setText("Insurance Status:");
 
-        txtInitDamageStatus.addActionListener(new java.awt.event.ActionListener() {
+        txtDamageStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInitDamageStatusActionPerformed(evt);
+                txtDamageStatusActionPerformed(evt);
             }
         });
 
         jLabel15.setText("Next Service:");
 
-        txtInitInsuranceStatus.addActionListener(new java.awt.event.ActionListener() {
+        txtInsuranceStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInitInsuranceStatusActionPerformed(evt);
+                txtInsuranceStatusActionPerformed(evt);
             }
         });
 
-        txtInitVehicleType.addActionListener(new java.awt.event.ActionListener() {
+        txtVehicleType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInitVehicleTypeActionPerformed(evt);
+                txtVehicleTypeActionPerformed(evt);
             }
         });
 
@@ -97,12 +103,12 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtInitInsuranceStatus)
-                    .addComponent(txtInitDamageStatus, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtInitVehicleType)
-                    .addComponent(txtInitNextService, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtInitDescription)
-                    .addComponent(txtInitRegistration, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtInsuranceStatus)
+                    .addComponent(txtDamageStatus, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtVehicleType)
+                    .addComponent(txtNextService, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtDescription)
+                    .addComponent(txtRegistration, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -116,27 +122,27 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInitDamageStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDamageStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(txtInitInsuranceStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtInsuranceStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(txtInitNextService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNextService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(txtInitVehicleType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtVehicleType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(txtInitRegistration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRegistration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(txtInitDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
@@ -146,17 +152,17 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtInitDamageStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInitDamageStatusActionPerformed
+    private void txtDamageStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDamageStatusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtInitDamageStatusActionPerformed
+    }//GEN-LAST:event_txtDamageStatusActionPerformed
 
-    private void txtInitInsuranceStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInitInsuranceStatusActionPerformed
+    private void txtInsuranceStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInsuranceStatusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtInitInsuranceStatusActionPerformed
+    }//GEN-LAST:event_txtInsuranceStatusActionPerformed
 
-    private void txtInitVehicleTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInitVehicleTypeActionPerformed
+    private void txtVehicleTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVehicleTypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtInitVehicleTypeActionPerformed
+    }//GEN-LAST:event_txtVehicleTypeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -169,11 +175,11 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JTextField txtInitDamageStatus;
-    private javax.swing.JTextField txtInitDescription;
-    private javax.swing.JTextField txtInitInsuranceStatus;
-    private javax.swing.JTextField txtInitNextService;
-    private javax.swing.JTextField txtInitRegistration;
-    private javax.swing.JTextField txtInitVehicleType;
+    private javax.swing.JTextField txtDamageStatus;
+    private javax.swing.JTextField txtDescription;
+    private javax.swing.JTextField txtInsuranceStatus;
+    private javax.swing.JTextField txtNextService;
+    private javax.swing.JTextField txtRegistration;
+    private javax.swing.JTextField txtVehicleType;
     // End of variables declaration//GEN-END:variables
 }
