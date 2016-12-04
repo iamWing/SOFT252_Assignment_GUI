@@ -5,19 +5,24 @@
  */
 package GUIs;
 
+import commands.CommandTracker;
+import commands.interfaces.ICommandTracker;
+
 /**
  *
  * @author Fairymental
  */
 public class GraphicalUI extends javax.swing.JFrame {
 
+    private ICommandTracker UndoHistory;
     /**
      * Creates new form GraphicalUI
      */
     public GraphicalUI() {
+        UndoHistory = new CommandTracker();
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,7 +73,7 @@ public class GraphicalUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     /**
      * @param args the command line arguments
      */

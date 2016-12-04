@@ -5,16 +5,21 @@
  */
 package GUIs;
 
+import commands.CommandTracker;
+import commands.interfaces.ICommandTracker;
+
 /**
  *
  * @author Admin
  */
 public class ManageStaffUI extends javax.swing.JPanel {
+    private ICommandTracker UndoHistory;
 
     /**
      * Creates new form ManageStaffUI
      */
     public ManageStaffUI() {
+        UndoHistory = new CommandTracker();
         initComponents();
     }
 

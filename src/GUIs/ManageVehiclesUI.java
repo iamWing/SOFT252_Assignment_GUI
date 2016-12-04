@@ -48,6 +48,11 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        listManageVehicles.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listManageVehiclesValueChanged(evt);
+            }
+        });
         jScrollPane4.setViewportView(listManageVehicles);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -63,7 +68,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))))
+                        .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(241, 241, 241)
                 .addComponent(jLabel26)
@@ -84,6 +89,10 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void listManageVehiclesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listManageVehiclesValueChanged
+        
+    }//GEN-LAST:event_listManageVehiclesValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

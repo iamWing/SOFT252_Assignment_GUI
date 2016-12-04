@@ -29,12 +29,12 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtInitInsuranceStatus" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtInitDamageStatus" alignment="1" max="32767" attributes="0"/>
-                  <Component id="txtInitVehicleType" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtInitNextService" alignment="1" max="32767" attributes="0"/>
-                  <Component id="txtInitDescription" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtInitRegistration" alignment="1" max="32767" attributes="0"/>
+                  <Component id="txtInsuranceStatus" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtDamageStatus" alignment="1" max="32767" attributes="0"/>
+                  <Component id="txtVehicleType" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtNextService" alignment="1" max="32767" attributes="0"/>
+                  <Component id="txtDescription" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtRegistration" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnSave" min="-2" pref="90" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -52,32 +52,32 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel13" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                  <Component id="txtInitDamageStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDamageStatus" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtInitInsuranceStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtInsuranceStatus" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtInitNextService" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNextService" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtInitVehicleType" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtVehicleType" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtInitRegistration" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtRegistration" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtInitDescription" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDescription" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -106,29 +106,29 @@
         <Property name="text" type="java.lang.String" value="Insurance Status:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtInitDamageStatus">
+    <Component class="javax.swing.JTextField" name="txtDamageStatus">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtInitDamageStatusActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDamageStatusActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtInitNextService">
+    <Component class="javax.swing.JTextField" name="txtNextService">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
         <Property name="text" type="java.lang.String" value="Next Service:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtInitInsuranceStatus">
+    <Component class="javax.swing.JTextField" name="txtInsuranceStatus">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtInitInsuranceStatusActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtInsuranceStatusActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtInitVehicleType">
+    <Component class="javax.swing.JTextField" name="txtVehicleType">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtInitVehicleTypeActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtVehicleTypeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtInitRegistration">
+    <Component class="javax.swing.JTextField" name="txtRegistration">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel16">
       <Properties>
@@ -140,7 +140,7 @@
         <Property name="text" type="java.lang.String" value="Damage Status:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtInitDescription">
+    <Component class="javax.swing.JTextField" name="txtDescription">
     </Component>
     <Component class="javax.swing.JButton" name="btnAdd">
       <Properties>
