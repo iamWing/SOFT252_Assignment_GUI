@@ -5,6 +5,8 @@
  */
 package GUIs;
 
+import models.CarParks;
+
 /**
  *
  * @author Admin
@@ -16,8 +18,13 @@ public class AssignVehicleUI extends javax.swing.JPanel {
      */
     public AssignVehicleUI() {
         initComponents();
+        
+        // --- init locations --- //
+        for (CarParks loc : CarParks.values()) {
+            lstLocation.addItem(loc.toString());
+        }
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,8 +63,6 @@ public class AssignVehicleUI extends javax.swing.JPanel {
                 btnAddActionPerformed(evt);
             }
         });
-
-        lstLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
