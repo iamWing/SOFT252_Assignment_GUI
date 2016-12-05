@@ -4,7 +4,13 @@
  * and open the template in the editor.
  */
 package GUIs;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import models.Car;
+import models.CarParks;
+import models.Insurance;
 /**
  *
  * @author Admin
@@ -23,6 +29,16 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     public void loadCarInfo(Car selectedVehicle)
     {
         tempCar = selectedVehicle;
+        txtCarBrand.setText(tempCar.getBrand());
+        txtCarModel.setText(tempCar.getModel());
+        txtCarID.setText(tempCar.getCARID());
+        txtDescription.setText(tempCar.getDescription());
+        txtInsuranceCompany.setText(tempCar.getInsurance().getCompany());
+        txtInsuranceNumber.setText(String.valueOf( tempCar.getInsurance().getInsuranceNumber()));
+        txtInsuranceStart.setText(tempCar.getInsurance().getStartDate().toString());
+        txtInsuranceEnd.setText(tempCar.getInsurance().getEndDate().toString());
+        txtNumberSeats.setText(String.valueOf(tempCar.getSeats()));
+        txtParkLoc.setText(tempCar.getLocation().toString());
     }
 
     /**
@@ -231,6 +247,10 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        Car tempCar = createCarFromTextBoxes();
+        
+        
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarModelActionPerformed
@@ -238,6 +258,70 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCarModelActionPerformed
 
 
+    private Car createCarFromTextBoxes()
+    {
+        Car tempCar;
+        String carBrand = "", carModel = "", carID = "", carDescription = "",carInsuranceCompany = "";
+        int carNumberSeats = 0, carInsuranceNumber =0;
+        Date carInsuranceStart = null, carInsuranceEnd = null;
+        CarParks carLoc = CarParks.CarPark01;
+        
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        
+        if(!txtCarBrand.getText().isEmpty())
+        {
+            carBrand = txtCarBrand.getText();
+        }
+        if(!txtCarModel.getText().isEmpty())
+        {
+            carModel = txtCarModel.getText();
+        }
+        if(!txtCarID.getText().isEmpty())
+        {
+            carID = txtCarID.getText();
+        }
+        if(!txtDescription.getText().isEmpty())
+        {
+            carDescription = txtDescription.getText();
+        }
+        if(!txtInsuranceCompany.getText().isEmpty())
+        {
+            carInsuranceCompany = txtInsuranceCompany.getText();
+        }
+        if(!txtInsuranceNumber.getText().isEmpty())
+        {
+            carInsuranceNumber = Integer.parseInt(txtInsuranceNumber.getText());
+        }
+        if(!txtInsuranceStart.getText().isEmpty())
+        {
+            try
+            {
+                carInsuranceStart = df.parse(txtInsuranceStart.getText());
+            
+            } catch(ParseException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        if(!txtInsuranceEnd.getText().isEmpty())
+        {
+            try
+            {
+                carInsuranceEnd = df.parse(txtInsuranceEnd.getText());
+            
+            } catch(ParseException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        tempCar = new Car(carID, carBrand,carModel, carNumberSeats, carLoc, carDescription);
+        Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, carInsuranceStart,carInsuranceEnd,tempCar);        
+        tempCar.setInsurance(tempInsurance);
+        
+        return tempCar;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
