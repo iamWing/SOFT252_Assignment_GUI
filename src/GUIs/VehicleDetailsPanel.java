@@ -27,7 +27,6 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     
     public void loadCarInfo(Car selectedVehicle)
     {
-        tempCar = selectedVehicle;
         txtCarBrand.setText(tempCar.getBrand());
         txtCarModel.setText(tempCar.getModel());
         txtCarID.setText(tempCar.getCARID());
@@ -38,6 +37,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtInsuranceEnd.setDate(tempCar.getInsurance().getEndDate());
         txtNumberSeats.setText(String.valueOf(tempCar.getSeats()));
         txtParkLoc.setText(tempCar.getLocation().toString());
+        
+        carToDelete = selectedVehicle;
     }
 
     public void clearCarInfo()
@@ -322,7 +323,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     public Car createCarFromTextBoxes()
     {
         Car tempCar;
-        String carBrand = "", carModel = "", carID = "", carDescription = "",carInsuranceCompany = "", carInsuranceNumber ="";
+        String carBrand = "N/A", carModel = "N/A", carID = "N/A", carDescription = "N/A",carInsuranceCompany = "N/A", carInsuranceNumber ="N/A";
         int carNumberSeats = 0;
         CarParks carLoc = CarParks.CarPark01;
         
@@ -355,10 +356,9 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         tempCar = new Car(carID, carBrand,carModel, carNumberSeats, carLoc, carDescription);
         Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(),txtInsuranceEnd.getDate(),tempCar);        
         tempCar.setInsurance(tempInsurance);
-        carToDelete = tempCar;
         return tempCar;
     }
-    public void infoBox(String infoMessage, String titleBar)
+    private void infoBox(String infoMessage, String titleBar)
     {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     } 

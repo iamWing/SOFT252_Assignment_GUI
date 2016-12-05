@@ -5,12 +5,17 @@
  */
 package GUIs;
 
+import javax.swing.JOptionPane;
+import models.Staff;
+
 /**
  *
  * @author Admin
  */
 public class StaffDetailsPanel extends javax.swing.JPanel {
 
+    
+    Staff staffToDelete;
     /**
      * Creates new form StaffDetailsPanel
      */
@@ -34,14 +39,14 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         txtLastName = new javax.swing.JTextField();
         txtLicenseType = new javax.swing.JTextField();
         jLabel41 = new javax.swing.JLabel();
-        txtForname = new javax.swing.JTextField();
+        txtForename = new javax.swing.JTextField();
         txtStaffID = new javax.swing.JTextField();
         txtLicenseNumber = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAdress = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel37.setText("License Nr.");
@@ -55,16 +60,31 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         jLabel41.setText("Forename:");
 
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnSave.setText("Save");
         btnSave.setEnabled(false);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
         btnDelete.setEnabled(false);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtAdress.setColumns(20);
+        txtAdress.setRows(5);
+        jScrollPane1.setViewportView(txtAdress);
 
         jLabel1.setText("Address:");
 
@@ -85,7 +105,7 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
                             .addComponent(jLabel1))
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtForname)
+                            .addComponent(txtForename)
                             .addComponent(txtLastName)
                             .addComponent(txtStaffID)
                             .addComponent(txtLicenseNumber)
@@ -106,7 +126,7 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel41)
-                    .addComponent(txtForname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtForename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,7 +158,110 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        Staff tempStaff = createStaffFromTextBoxes();
+        
+        // Add staff to list
+            
+        infoBox("Staff added successfully.","Operation successful");
+    }//GEN-LAST:event_btnAddActionPerformed
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        
+        // Delete staff from list
+        
+         Staff tempStaff = createStaffFromTextBoxes();
+        
+        // Add new staff to list
+            
+        infoBox("Staff removed successfully.","Operation successful");
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        
+        //Delete staff from list
+    }//GEN-LAST:event_btnDeleteActionPerformed
+    
+    public void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    } 
+    
+    public void enableSaveButton()
+    {
+        btnSave.setEnabled(true);
+    }
+    public void disableSaveButton()
+    {
+        btnSave.setEnabled(false);
+    }
+    public void enableDeleteButton()
+    {
+        btnDelete.setEnabled(true);
+    }
+    public void disableDeleteButton()
+    {
+        btnDelete.setEnabled(false);
+    }
+    public void clearStaffInfo()
+    {
+        txtForename.setText("");
+        txtLastName.setText("");
+        txtLicenseNumber.setText("");
+        txtLicenseType.setText("");
+        txtStaffID.setText("");
+        txtAdress.setText("");
+    }
+    public void loadStaffInfo(Staff tempStaff)
+    {
+        txtForename.setText(tempStaff.getForeName());
+        txtLastName.setText(tempStaff.getLastName());
+        txtLicenseNumber.setText(tempStaff.getLicenseNumber());
+        txtLicenseType.setText(tempStaff.getLicenseType());
+        txtStaffID.setText(tempStaff.getSTAFFID());
+        txtAdress.setText(tempStaff.getAddress());
+        
+        staffToDelete =tempStaff;
+    }
+    
+    private Staff createStaffFromTextBoxes()
+    {
+        Staff tempStaff;
+        String forename = "N/A", lastName = "N/A", address = "N/A", licenseNumber = "N/A", licenseType = "N/A", staffID = "N/A";
+        
+        if(!txtForename.getText().isEmpty())
+        {
+            forename = txtForename.getText();
+        }
+        if(!txtLastName.getText().isEmpty())
+        {
+            lastName = txtLastName.getText();
+        }
+        if(!txtStaffID.getText().isEmpty())
+        {
+            staffID = txtStaffID.getText();
+        }
+        if(!txtAdress.getText().isEmpty())
+        {
+            address = txtAdress.getText();
+        }
+        if(!txtLicenseNumber.getText().isEmpty())
+        {
+            licenseNumber = txtLicenseNumber.getText();
+        }
+        if(!txtLicenseType.getText().isEmpty())
+        {
+            licenseType = txtLicenseType.getText();
+        }
+        
+        tempStaff = new Staff(staffID, forename, lastName, address,licenseNumber,licenseType);
+        
+        return tempStaff;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
@@ -150,8 +273,8 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txtForname;
+    private javax.swing.JTextArea txtAdress;
+    private javax.swing.JTextField txtForename;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtLicenseNumber;
     private javax.swing.JTextField txtLicenseType;
