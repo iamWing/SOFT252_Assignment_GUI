@@ -5,9 +5,8 @@
  */
 package GUIs;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import javax.swing.JOptionPane;
 import models.Car;
 import models.CarParks;
 import models.Insurance;
@@ -21,7 +20,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
      * Creates new form VehicleDetailsPanel
      */
     Car tempCar;
-    
+    Car carToDelete;
     public VehicleDetailsPanel() {
         initComponents();
     }
@@ -41,6 +40,17 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtParkLoc.setText(tempCar.getLocation().toString());
     }
 
+    public void clearCarInfo()
+    {
+        txtCarBrand.setText("");
+        txtCarModel.setText("");
+        txtCarID.setText("");
+        txtDescription.setText("");
+        txtInsuranceCompany.setText("");
+        txtInsuranceNumber.setText("");
+        txtNumberSeats.setText("");
+        txtParkLoc.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -110,9 +120,19 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
         btnSave.setText("Save");
         btnSave.setEnabled(false);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
         btnDelete.setEnabled(false);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel19.setText("Car Model:");
 
@@ -249,23 +269,62 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Car tempCar = createCarFromTextBoxes();
         
+        //Add car to list
         
         
+        tempCar = null;
+        clearCarInfo();
+        infoBox("Car added successfully.","Operation successful");
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarModelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCarModelActionPerformed
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        
+        // Delete Car that has been selected before
+        
+        Car tempCar = createCarFromTextBoxes();      
+        //Add Car that has been created.
+        
+        clearCarInfo();
+        infoBox("Car information updated.","Operation successful");
+    }//GEN-LAST:event_btnSaveActionPerformed
 
-    private Car createCarFromTextBoxes()
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        clearCarInfo();
+        // Delete Car that has been selected before
+        
+        infoBox("Car deleted from list.","Operation successful");
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    public void enableSaveButton()
+    {
+        btnSave.setEnabled(true);
+    }
+    public void disableSaveButton()
+    {
+        btnSave.setEnabled(false);
+    }
+    public void enableDeleteButton()
+    {
+        btnDelete.setEnabled(true);
+    }
+    public void disableDeleteButton()
+    {
+        btnDelete.setEnabled(false);
+    }
+    
+    
+    public Car createCarFromTextBoxes()
     {
         Car tempCar;
         String carBrand = "", carModel = "", carID = "", carDescription = "",carInsuranceCompany = "", carInsuranceNumber ="";
         int carNumberSeats = 0;
         CarParks carLoc = CarParks.CarPark01;
-        
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         
         if(!txtCarBrand.getText().isEmpty())
         {
@@ -296,9 +355,13 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         tempCar = new Car(carID, carBrand,carModel, carNumberSeats, carLoc, carDescription);
         Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(),txtInsuranceEnd.getDate(),tempCar);        
         tempCar.setInsurance(tempInsurance);
-        
+        carToDelete = tempCar;
         return tempCar;
     }
+    public void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    } 
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
