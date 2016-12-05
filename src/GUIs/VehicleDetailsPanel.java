@@ -7,7 +7,7 @@ package GUIs;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import models.Car;
 import models.CarParks;
 import models.Insurance;
@@ -35,8 +35,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtDescription.setText(tempCar.getDescription());
         txtInsuranceCompany.setText(tempCar.getInsurance().getCompany());
         txtInsuranceNumber.setText(String.valueOf( tempCar.getInsurance().getInsuranceNumber()));
-        txtInsuranceStart.setText(tempCar.getInsurance().getStartDate().toString());
-        txtInsuranceEnd.setText(tempCar.getInsurance().getEndDate().toString());
+        txtInsuranceStart.setDate(tempCar.getInsurance().getStartDate());
+        txtInsuranceEnd.setDate(tempCar.getInsurance().getEndDate());
         txtNumberSeats.setText(String.valueOf(tempCar.getSeats()));
         txtParkLoc.setText(tempCar.getLocation().toString());
     }
@@ -72,8 +72,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        txtInsuranceStart = new javax.swing.JTextField();
-        txtInsuranceEnd = new javax.swing.JTextField();
+        txtInsuranceStart = new org.jdesktop.swingx.JXDatePicker();
+        txtInsuranceEnd = new org.jdesktop.swingx.JXDatePicker();
 
         jLabel18.setText("Description:");
 
@@ -171,10 +171,10 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel25))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtInsuranceCompany, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                    .addComponent(txtInsuranceCompany)
                                     .addComponent(txtInsuranceNumber)
-                                    .addComponent(txtInsuranceStart)
-                                    .addComponent(txtInsuranceEnd)))))
+                                    .addComponent(txtInsuranceStart, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                    .addComponent(txtInsuranceEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -214,17 +214,17 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                     .addComponent(txtInsuranceNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtInsuranceStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
+                    .addComponent(jLabel24)
+                    .addComponent(txtInsuranceStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtInsuranceEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25))
-                .addGap(9, 9, 9)
+                    .addComponent(jLabel25)
+                    .addComponent(txtInsuranceEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnSave)
@@ -261,9 +261,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private Car createCarFromTextBoxes()
     {
         Car tempCar;
-        String carBrand = "", carModel = "", carID = "", carDescription = "",carInsuranceCompany = "";
-        int carNumberSeats = 0, carInsuranceNumber =0;
-        Date carInsuranceStart = null, carInsuranceEnd = null;
+        String carBrand = "", carModel = "", carID = "", carDescription = "",carInsuranceCompany = "", carInsuranceNumber ="";
+        int carNumberSeats = 0;
         CarParks carLoc = CarParks.CarPark01;
         
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -290,32 +289,12 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         }
         if(!txtInsuranceNumber.getText().isEmpty())
         {
-            carInsuranceNumber = Integer.parseInt(txtInsuranceNumber.getText());
+            carInsuranceNumber = txtInsuranceNumber.getText();
         }
-        if(!txtInsuranceStart.getText().isEmpty())
-        {
-            try
-            {
-                carInsuranceStart = df.parse(txtInsuranceStart.getText());
-            
-            } catch(ParseException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        if(!txtInsuranceEnd.getText().isEmpty())
-        {
-            try
-            {
-                carInsuranceEnd = df.parse(txtInsuranceEnd.getText());
-            
-            } catch(ParseException e)
-            {
-                e.printStackTrace();
-            }
-        }
+
+
         tempCar = new Car(carID, carBrand,carModel, carNumberSeats, carLoc, carDescription);
-        Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, carInsuranceStart,carInsuranceEnd,tempCar);        
+        Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(),txtInsuranceEnd.getDate(),tempCar);        
         tempCar.setInsurance(tempInsurance);
         
         return tempCar;
@@ -342,9 +321,9 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCarModel;
     private javax.swing.JTextField txtDescription;
     private javax.swing.JTextField txtInsuranceCompany;
-    private javax.swing.JTextField txtInsuranceEnd;
+    private org.jdesktop.swingx.JXDatePicker txtInsuranceEnd;
     private javax.swing.JTextField txtInsuranceNumber;
-    private javax.swing.JTextField txtInsuranceStart;
+    private org.jdesktop.swingx.JXDatePicker txtInsuranceStart;
     private javax.swing.JTextField txtNumberSeats;
     private javax.swing.JTextField txtParkLoc;
     // End of variables declaration//GEN-END:variables

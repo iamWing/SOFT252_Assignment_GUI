@@ -52,9 +52,9 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtInsuranceCompany" pref="132" max="32767" attributes="0"/>
+                                  <Component id="txtInsuranceCompany" max="32767" attributes="0"/>
                                   <Component id="txtInsuranceNumber" max="32767" attributes="0"/>
-                                  <Component id="txtInsuranceStart" max="32767" attributes="0"/>
+                                  <Component id="txtInsuranceStart" pref="132" max="32767" attributes="0"/>
                                   <Component id="txtInsuranceEnd" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -110,20 +110,20 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtInsuranceStart" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtInsuranceStart" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtInsuranceEnd" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtInsuranceEnd" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtDescription" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -238,9 +238,9 @@
         <Property name="text" type="java.lang.String" value="End Date:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtInsuranceStart">
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="txtInsuranceStart">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtInsuranceEnd">
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="txtInsuranceEnd">
     </Component>
   </SubComponents>
 </Form>
