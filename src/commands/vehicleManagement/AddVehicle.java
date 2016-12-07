@@ -25,10 +25,6 @@ public class AddVehicle implements ICommandBehavior {
             int _seats, CarParks _loc, String _desc) {
         vehicle = new Car(_carId, _brand, _model, _seats, _loc, _desc);
     } 
-    public AddVehicle(Car _car)
-    {
-        vehicle = _car;
-    }
 
     @Override
     public boolean executeCommand() {

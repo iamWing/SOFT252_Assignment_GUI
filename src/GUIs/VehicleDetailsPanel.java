@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package GUIs;
+import commands.Command;
 import commands.CommandTracker;
+import commands.interfaces.ICommandBehavior;
 import commands.interfaces.ICommandTracker;
 import commands.vehicleManagement.AddVehicle;
 import javax.swing.JOptionPane;
@@ -22,8 +24,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
      */
     Car tempCar;
     Car carToDelete;
-    
-    ICommandTracker undoHistory = new CommandTracker();
+
+    CommandTracker cmdTracker = new CommandTracker();
     
     public VehicleDetailsPanel() {
         initComponents();
@@ -87,8 +89,6 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        txtInsuranceStart = new org.jdesktop.swingx.JXDatePicker();
-        txtInsuranceEnd = new org.jdesktop.swingx.JXDatePicker();
 
         jLabel18.setText("Description:");
 
@@ -196,13 +196,11 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel25))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtInsuranceCompany)
-                                    .addComponent(txtInsuranceNumber)
-                                    .addComponent(txtInsuranceStart, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                    .addComponent(txtInsuranceEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(txtInsuranceCompany, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                    .addComponent(txtInsuranceNumber)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, Short.MAX_VALUE)
                         .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
@@ -238,18 +236,14 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                     .addComponent(jLabel23)
                     .addComponent(txtInsuranceNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(txtInsuranceStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(txtInsuranceEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
+                .addComponent(jLabel25)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnSave)
@@ -271,19 +265,16 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumberSeatsActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        Car tempCar = createCarFromTextBoxes();
         
-        //Add car to list
-        AddVehicle addTempCar = new AddVehicle(tempCar);
+        ICommandBehavior cmdBehavior = new AddVehicle(txtCarID.getText());
+        Command cmd = new Command(cmdBehavior);
         
+        boolean result = cmdTracker.executeCommand(cmd);
         
-        //Wing please fill in the code here to 
-       // undoHistory.executeCommand(addTempCar);
-        
-        tempCar = null;
+        if (result) {
         clearCarInfo();
         infoBox("Car added successfully.","Operation successful");
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarModelActionPerformed
@@ -392,9 +383,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCarModel;
     private javax.swing.JTextField txtDescription;
     private javax.swing.JTextField txtInsuranceCompany;
-    private org.jdesktop.swingx.JXDatePicker txtInsuranceEnd;
     private javax.swing.JTextField txtInsuranceNumber;
-    private org.jdesktop.swingx.JXDatePicker txtInsuranceStart;
     private javax.swing.JTextField txtNumberSeats;
     private javax.swing.JTextField txtParkLoc;
     // End of variables declaration//GEN-END:variables
