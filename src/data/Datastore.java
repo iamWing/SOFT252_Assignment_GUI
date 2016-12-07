@@ -9,7 +9,6 @@ package data;
 
 import java.util.ArrayList;
 import models.Car;
-import models.Insurance;
 import models.Staff;
 
 /**
