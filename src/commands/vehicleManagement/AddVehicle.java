@@ -32,11 +32,13 @@ public class AddVehicle implements ICommandBehavior {
 
     @Override
     public boolean executeCommand() {
-        return Datastore.cars.add(vehicle);
+        Datastore ds = Datastore.GetDatastore();
+        return ds.AddCar(vehicle);
     }
 
     @Override
     public boolean undoCommand() {
-        return Datastore.cars.remove(vehicle);
+        Datastore ds = Datastore.GetDatastore();
+        return ds.RemoveCar(vehicle);
     }
 }

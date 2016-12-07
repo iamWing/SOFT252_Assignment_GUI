@@ -8,6 +8,7 @@ package GUIs;
 import commands.CommandTracker;
 import commands.interfaces.ICommandTracker;
 import commands.vehicleManagement.AddVehicle;
+import data.Datastore;
 
 /**
  *
@@ -16,10 +17,12 @@ import commands.vehicleManagement.AddVehicle;
 public class GraphicalUI extends javax.swing.JFrame {
 
     private ICommandTracker UndoHistory;
+    private Datastore dataStore;
     /**
      * Creates new form GraphicalUI
      */
     public GraphicalUI() {
+        dataStore = Datastore.GetDatastore();
         UndoHistory = new CommandTracker();
         initComponents();
     }
@@ -43,6 +46,11 @@ public class GraphicalUI extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTabbedPane2.addTab("Assign Vehicle", assignVehicleUI2);
         jTabbedPane2.addTab("Manage Staff", manageStaffUI1);
@@ -74,6 +82,10 @@ public class GraphicalUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        Datastore.Save();
+    }//GEN-LAST:event_formWindowClosing
     
     /**
      * @param args the command line arguments
