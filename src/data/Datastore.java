@@ -16,14 +16,6 @@ import models.Staff;
  * @author Fairymental
  */
 public class Datastore {
-    private ArrayList<Car> cars;
-    private ArrayList<Staff> staff;
-
-    public ArrayList<Car> getVehicleList() {
-        return cars;
-    }
-    
-    public ArrayList<Staff> getStaffList() {
-        return staff;
-    }
+    public static ArrayList<Car> cars = new ArrayList<>();
+    public static ArrayList<Staff> staff = new ArrayList<>();
 }
