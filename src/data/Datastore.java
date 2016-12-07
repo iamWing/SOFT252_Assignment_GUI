@@ -1,3 +1,5 @@
+package data;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,19 +17,14 @@ import models.Staff;
  * @author Fairymental
  */
 public class Datastore {
-    private ArrayList<Car> Cars;
-    private ArrayList<Staff> Staff;
+    private ArrayList<Car> cars;
+    private ArrayList<Staff> staff;
+
+    public ArrayList<Car> getVehicleList() {
+        return cars;
+    }
     
-    public ArrayList<Staff> getStaffList()
-    {
-        return Staff;
-    }
-    public void AddCar(Car newCar)
-    {
-        Cars.add(newCar);
-    }
-    public void AddStaff(Staff newStaff)
-    {
-        Staff.add(newStaff);
+    public ArrayList<Staff> getStaffList() {
+        return staff;
     }
 }
