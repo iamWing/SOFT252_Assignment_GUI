@@ -4,13 +4,16 @@
  * and open the template in the editor.
  */
 package GUIs;
+
+import commands.Command;
 import commands.CommandTracker;
-import commands.interfaces.ICommandTracker;
+import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.AddVehicle;
 import javax.swing.JOptionPane;
 import models.Car;
 import models.CarParks;
 import models.Insurance;
+
 /**
  *
  * @author Admin
@@ -22,31 +25,29 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
      */
     Car tempCar;
     Car carToDelete;
-    
-    ICommandTracker undoHistory = new CommandTracker();
-    
+
+    CommandTracker cmdTracker = new CommandTracker();
+
     public VehicleDetailsPanel() {
         initComponents();
     }
-    
-    public void loadCarInfo(Car selectedVehicle)
-    {
+
+    public void loadCarInfo(Car selectedVehicle) {
         txtCarBrand.setText(tempCar.getBrand());
         txtCarModel.setText(tempCar.getModel());
         txtCarID.setText(tempCar.getCARID());
         txtDescription.setText(tempCar.getDescription());
         txtInsuranceCompany.setText(tempCar.getInsurance().getCompany());
-        txtInsuranceNumber.setText(String.valueOf( tempCar.getInsurance().getInsuranceNumber()));
+        txtInsuranceNumber.setText(String.valueOf(tempCar.getInsurance().getInsuranceNumber()));
         txtInsuranceStart.setDate(tempCar.getInsurance().getStartDate());
         txtInsuranceEnd.setDate(tempCar.getInsurance().getEndDate());
         txtNumberSeats.setText(String.valueOf(tempCar.getSeats()));
         txtParkLoc.setText(tempCar.getLocation().toString());
-        
+
         carToDelete = selectedVehicle;
     }
 
-    public void clearCarInfo()
-    {
+    public void clearCarInfo() {
         txtCarBrand.setText("");
         txtCarModel.setText("");
         txtCarID.setText("");
@@ -56,6 +57,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtNumberSeats.setText("");
         txtParkLoc.setText("");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,8 +89,6 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        txtInsuranceStart = new org.jdesktop.swingx.JXDatePicker();
-        txtInsuranceEnd = new org.jdesktop.swingx.JXDatePicker();
 
         jLabel18.setText("Description:");
 
@@ -196,13 +196,11 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel25))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtInsuranceCompany)
-                                    .addComponent(txtInsuranceNumber)
-                                    .addComponent(txtInsuranceStart, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                    .addComponent(txtInsuranceEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(txtInsuranceCompany, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                    .addComponent(txtInsuranceNumber)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, Short.MAX_VALUE)
                         .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
@@ -238,18 +236,14 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                     .addComponent(jLabel23)
                     .addComponent(txtInsuranceNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(txtInsuranceStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(txtInsuranceEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
+                .addComponent(jLabel25)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnSave)
@@ -271,19 +265,16 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumberSeatsActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        Car tempCar = createCarFromTextBoxes();
-        
-        //Add car to list
-        AddVehicle addTempCar = new AddVehicle(tempCar);
-        
-        
-        //Wing please fill in the code here to 
-       // undoHistory.executeCommand(addTempCar);
-        
-        tempCar = null;
-        clearCarInfo();
-        infoBox("Car added successfully.","Operation successful");
+        ICommandBehavior cmdBehavior = new AddVehicle(txtCarID.getText());
+        Command cmd = new Command(cmdBehavior);
+
+        try {
+            cmdTracker.executeCommand(cmd);
+            clearCarInfo();
+            infoBox("Car added successfully.", "Operation successful");
+        } catch (Exception ex) {
+            System.err.print(ex.getMessage());
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarModelActionPerformed
@@ -292,86 +283,75 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        
+
         // Delete Car that has been selected before
-        
-        Car tempCar = createCarFromTextBoxes();      
+        Car tempCar = createCarFromTextBoxes();
         //Add Car that has been created.
-        
+
         clearCarInfo();
-        infoBox("Car information updated.","Operation successful");
+        infoBox("Car information updated.", "Operation successful");
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         clearCarInfo();
         // Delete Car that has been selected before
-        
-        infoBox("Car deleted from list.","Operation successful");
+
+        infoBox("Car deleted from list.", "Operation successful");
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    public void enableSaveButton()
-    {
+    public void enableSaveButton() {
         btnSave.setEnabled(true);
     }
-    public void disableSaveButton()
-    {
+
+    public void disableSaveButton() {
         btnSave.setEnabled(false);
     }
-    public void enableDeleteButton()
-    {
+
+    public void enableDeleteButton() {
         btnDelete.setEnabled(true);
     }
-    public void disableDeleteButton()
-    {
+
+    public void disableDeleteButton() {
         btnDelete.setEnabled(false);
     }
-    
-    
-    public Car createCarFromTextBoxes()
-    {
+
+    public Car createCarFromTextBoxes() {
         Car tempCar;
-        String carBrand = "N/A", carModel = "N/A", carID = "N/A", carDescription = "N/A",carInsuranceCompany = "N/A", carInsuranceNumber ="N/A";
+        String carBrand = "N/A", carModel = "N/A", carID = "N/A", carDescription = "N/A", carInsuranceCompany = "N/A", carInsuranceNumber = "N/A";
         int carNumberSeats = 0;
         CarParks carLoc = CarParks.CarPark01;
-        
-        if(!txtCarBrand.getText().isEmpty())
-        {
+
+        if (!txtCarBrand.getText().isEmpty()) {
             carBrand = txtCarBrand.getText();
         }
-        if(!txtCarModel.getText().isEmpty())
-        {
+        if (!txtCarModel.getText().isEmpty()) {
             carModel = txtCarModel.getText();
         }
-        if(!txtCarID.getText().isEmpty())
-        {
+        if (!txtCarID.getText().isEmpty()) {
             carID = txtCarID.getText();
         }
-        if(!txtDescription.getText().isEmpty())
-        {
+        if (!txtDescription.getText().isEmpty()) {
             carDescription = txtDescription.getText();
         }
-        if(!txtInsuranceCompany.getText().isEmpty())
-        {
+        if (!txtInsuranceCompany.getText().isEmpty()) {
             carInsuranceCompany = txtInsuranceCompany.getText();
         }
-        if(!txtInsuranceNumber.getText().isEmpty())
-        {
+        if (!txtInsuranceNumber.getText().isEmpty()) {
             carInsuranceNumber = txtInsuranceNumber.getText();
         }
 
-
-        tempCar = new Car(carID, carBrand,carModel, carNumberSeats, carLoc, carDescription);
-        Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(),txtInsuranceEnd.getDate(),tempCar);        
+        tempCar = new Car(carID, carBrand, carModel, carNumberSeats, carLoc, carDescription);
+        Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(), txtInsuranceEnd.getDate(), tempCar);
         tempCar.setInsurance(tempInsurance);
         return tempCar;
     }
-    private void infoBox(String infoMessage, String titleBar)
-    {
+
+    private void infoBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
-    } 
-    
-    
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
@@ -392,9 +372,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCarModel;
     private javax.swing.JTextField txtDescription;
     private javax.swing.JTextField txtInsuranceCompany;
-    private org.jdesktop.swingx.JXDatePicker txtInsuranceEnd;
     private javax.swing.JTextField txtInsuranceNumber;
-    private org.jdesktop.swingx.JXDatePicker txtInsuranceStart;
     private javax.swing.JTextField txtNumberSeats;
     private javax.swing.JTextField txtParkLoc;
     // End of variables declaration//GEN-END:variables
