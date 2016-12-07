@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package GUIs;
+import commands.CommandTracker;
+import commands.interfaces.ICommandTracker;
+import commands.vehicleManagement.AddVehicle;
 import javax.swing.JOptionPane;
 import models.Car;
 import models.CarParks;
@@ -19,6 +22,9 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
      */
     Car tempCar;
     Car carToDelete;
+    
+    ICommandTracker undoHistory = new CommandTracker();
+    
     public VehicleDetailsPanel() {
         initComponents();
     }
@@ -269,7 +275,11 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         Car tempCar = createCarFromTextBoxes();
         
         //Add car to list
+        AddVehicle addTempCar = new AddVehicle(tempCar);
         
+        
+        //Wing please fill in the code here to 
+       // undoHistory.executeCommand(addTempCar);
         
         tempCar = null;
         clearCarInfo();
