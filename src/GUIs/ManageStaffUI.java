@@ -39,19 +39,14 @@ public class ManageStaffUI extends javax.swing.JPanel {
         listManageStaffMembers = new javax.swing.JList<>();
         staffDetailsPanel1 = new GUIs.StaffDetailsPanel();
 
-        listHistoryStaffMembers.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane7.setViewportView(listHistoryStaffMembers);
 
         jLabel42.setText("H i s t o r y:");
 
-        listManageStaffMembers.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        listManageStaffMembers.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listManageStaffMembersValueChanged(evt);
+            }
         });
         jScrollPane6.setViewportView(listManageStaffMembers);
 
@@ -87,6 +82,10 @@ public class ManageStaffUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void listManageStaffMembersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listManageStaffMembersValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listManageStaffMembersValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
