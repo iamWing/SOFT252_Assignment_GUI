@@ -27,7 +27,11 @@ public class AddVehicle implements ICommandBehavior {
     } 
 
     @Override
-    public boolean executeCommand() {
+    public boolean executeCommand() throws Exception {
+        for (Car obj : Datastore.cars) {
+            if (obj.getCARID().hashCode() == vehicle.getCARID().hashCode())
+                throw new Exception("CARID existed");
+        }
         return Datastore.cars.add(vehicle);
     }
 
