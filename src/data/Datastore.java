@@ -46,6 +46,21 @@ public class Datastore implements Serializable {
         }
         return foundCars;
     }
+    public ArrayList<Car> GetCars()
+    {
+        ArrayList<Car> foundCars = new ArrayList<Car>();
+        for (Car car : this.cars)
+        {
+
+                foundCars.add(car);
+        }
+        return foundCars;
+    }
+    public Car GetCarAtIndex(int index)
+    {
+        return this.cars.get(index);
+    }
+    
     public boolean RemoveCar(Car car)
     {
         return this.cars.remove(car);

@@ -5,6 +5,12 @@
  */
 package GUIs;
 
+import data.Datastore;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import models.Car;
+
 /**
  *
  * @author Admin
@@ -14,8 +20,11 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     /**
      * Creates new form ManageVehiclesUI
      */
+    Datastore dataStore;
+    
     public ManageVehiclesUI() {
         initComponents();
+        dataStore = new Datastore();
     }
 
     /**
@@ -33,6 +42,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         listManageVehicles = new javax.swing.JList<>();
         vehicleDetailsPanel1 = new GUIs.VehicleDetailsPanel();
+        btnForceRefresh = new javax.swing.JButton();
 
         jLabel26.setText("H i s t o r y");
 
@@ -45,6 +55,13 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(listManageVehicles);
 
+        btnForceRefresh.setText("Force Refresh");
+        btnForceRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForceRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -54,7 +71,9 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnForceRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -70,8 +89,10 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                     .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane4)))
-                .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnForceRefresh)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -80,11 +101,29 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void listManageVehiclesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listManageVehiclesValueChanged
-        
+        if(listManageVehicles.getSelectedIndex() != -1)
+            vehicleDetailsPanel1.loadCarInfo(dataStore.GetCarAtIndex(listManageVehicles.getSelectedIndex()));
     }//GEN-LAST:event_listManageVehiclesValueChanged
 
+    private void btnForceRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceRefreshActionPerformed
+        RefreshList();
+        
+    }//GEN-LAST:event_btnForceRefreshActionPerformed
+    private void RefreshList()
+    {
+        ArrayList<Car> carList = dataStore.GetCars();
+        DefaultListModel<String> model = new DefaultListModel<>();
+        listManageVehicles = new JList(model);
+        System.out.println("ButtonPressed");
+        for( Car car : carList)
+        {
+            model.addElement(car.getCARID() + " " +car.getBrand());
+            System.out.println(car.getCARID() + " " +car.getBrand());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnForceRefresh;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;

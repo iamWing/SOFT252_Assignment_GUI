@@ -21,7 +21,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane5" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane4" min="-2" pref="259" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane4" min="-2" pref="259" max="-2" attributes="0"/>
+                          <Component id="btnForceRefresh" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -41,12 +44,14 @@
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="vehicleDetailsPanel1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" min="-2" pref="299" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnForceRefresh" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane5" min="-2" pref="187" max="-2" attributes="0"/>
@@ -98,6 +103,14 @@
       </SubComponents>
     </Container>
     <Component class="GUIs.VehicleDetailsPanel" name="vehicleDetailsPanel1">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnForceRefresh">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Force Refresh"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnForceRefreshActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
