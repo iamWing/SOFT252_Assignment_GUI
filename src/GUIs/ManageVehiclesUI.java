@@ -24,7 +24,8 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     
     public ManageVehiclesUI() {
         initComponents();
-        dataStore = new Datastore();
+        dataStore = Datastore.GetDatastore();
+        RefreshList();
     }
 
     /**
@@ -113,13 +114,15 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     {
         ArrayList<Car> carList = dataStore.GetCars();
         DefaultListModel<String> model = new DefaultListModel<>();
-        listManageVehicles = new JList(model);
         System.out.println("ButtonPressed");
+        DefaultListModel listModel = new DefaultListModel();
         for( Car car : carList)
         {
             model.addElement(car.getCARID() + " " +car.getBrand());
             System.out.println(car.getCARID() + " " +car.getBrand());
+            listModel.addElement(car.getCARID() + " " +car.getBrand());
         }
+        listManageVehicles.setModel(listModel);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
