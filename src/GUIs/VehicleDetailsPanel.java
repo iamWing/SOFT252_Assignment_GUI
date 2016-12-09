@@ -23,8 +23,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     /**
      * Creates new form VehicleDetailsPanel
      */
-    Car tempCar;
-    Car carToDelete;
+    Car selectedCar;
 
     CommandTracker cmdTracker = new CommandTracker();
 
@@ -44,7 +43,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtNumberSeats.setText(String.valueOf(selectedVehicle.getSeats()));
         txtParkLoc.setText(selectedVehicle.getLocation().toString());
 
-        carToDelete = selectedVehicle;
+        selectedCar = selectedVehicle;
     }
 
     public void clearCarInfo() {
@@ -293,10 +292,21 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
 
+        
         // Delete Car that has been selected before
-        Car tempCar = createCarFromTextBoxes();
-        //Add Car that has been created.
 
+        //Add Car that has been created.
+        ICommandBehavior cmdBehavior = new AddVehicle(createCarFromTextBoxes());
+        Command cmd = new Command(cmdBehavior);
+
+        try {
+            cmdTracker.executeCommand(cmd);
+            clearCarInfo();
+            infoBox("Car added successfully.", "Operation successful");
+        } catch (Exception ex) {
+            System.err.print(ex.getMessage());
+        }
+        
         clearCarInfo();
         infoBox("Car information updated.", "Operation successful");
     }//GEN-LAST:event_btnSaveActionPerformed
