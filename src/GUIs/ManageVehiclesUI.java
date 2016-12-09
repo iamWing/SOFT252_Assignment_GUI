@@ -106,6 +106,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         {
             System.out.println(" " + listManageVehicles.getSelectedIndex());
             vehicleDetailsPanel1.loadCarInfo(dataStore.GetCars().get(listManageVehicles.getSelectedIndex()));
+            
         }
     }//GEN-LAST:event_listManageVehiclesValueChanged
 

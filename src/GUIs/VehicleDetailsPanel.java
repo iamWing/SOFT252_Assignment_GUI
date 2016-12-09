@@ -10,6 +10,8 @@ import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.AddVehicle;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import models.Car;
 import models.CarParks;
 import models.Insurance;
@@ -23,14 +25,45 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     /**
      * Creates new form VehicleDetailsPanel
      */
-    Car selectedCar;
-
+    Car selectedCar = null;
     CommandTracker cmdTracker = new CommandTracker();
+    DocumentListener documentListener;
 
     public VehicleDetailsPanel() {
         initComponents();
+        documentListener = new DocumentListener()
+        {
+            public void changedUpdate (DocumentEvent e)
+            {
+                warn();
+            }
+            public void removeUpdate (DocumentEvent e)
+            {
+                warn();
+            }
+            public void insertUpdate (DocumentEvent e)
+            {
+                warn();
+            }
+        };
+        
+        txtCarBrand.getDocument().addDocumentListener(documentListener);
+        txtCarModel.getDocument().addDocumentListener(documentListener);
+        txtCarID.getDocument().addDocumentListener(documentListener);
+        txtDescription.getDocument().addDocumentListener(documentListener);
+        txtInsuranceCompany.getDocument().addDocumentListener(documentListener);
+        txtInsuranceNumber.getDocument().addDocumentListener(documentListener);
+        txtNumberSeats.getDocument().addDocumentListener(documentListener);
+        txtParkLoc.getDocument().addDocumentListener(documentListener);
+        
     }
 
+    public void warn()
+    {
+        System.out.println("Warned");
+        if(selectedCar != null)
+            enableSaveButton();
+    }
     public void loadCarInfo(Car selectedVehicle) {
         txtCarBrand.setText(selectedVehicle.getBrand());
         txtCarModel.setText(selectedVehicle.getModel());
@@ -43,6 +76,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtNumberSeats.setText(String.valueOf(selectedVehicle.getSeats()));
         txtParkLoc.setText(selectedVehicle.getLocation().toString());
 
+        disableSaveButton();
         selectedCar = selectedVehicle;
     }
 
@@ -307,6 +341,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             System.err.print(ex.getMessage());
         }
         
+        selectedCar = null;
         clearCarInfo();
         infoBox("Car information updated.", "Operation successful");
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -316,6 +351,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         clearCarInfo();
         // Delete Car that has been selected before
 
+        
+        selectedCar = null;
         infoBox("Car deleted from list.", "Operation successful");
     }//GEN-LAST:event_btnDeleteActionPerformed
 
