@@ -38,7 +38,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtCarID.setText(selectedVehicle.getCARID());
         txtDescription.setText(selectedVehicle.getDescription());
         txtInsuranceCompany.setText(selectedVehicle.getInsurance().getCompany());
-        txtInsuranceNumber.setText(String.valueOf(selectedVehicle.getInsurance().getInsuranceNumber()));
+        txtInsuranceNumber.setText(selectedVehicle.getInsurance().getInsuranceNumber());
         txtInsuranceStart.setDate(selectedVehicle.getInsurance().getStartDate());
         txtInsuranceEnd.setDate(selectedVehicle.getInsurance().getEndDate());
         txtNumberSeats.setText(String.valueOf(selectedVehicle.getSeats()));

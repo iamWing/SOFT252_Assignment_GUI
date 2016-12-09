@@ -14,10 +14,14 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import models.Car;
 import models.CarParks;
+import models.Insurance;
 import models.Staff;
 
 /**
@@ -101,6 +105,7 @@ public class Datastore implements Serializable {
         catch (Exception Ex)
         {
             Datastore newStore = new Datastore();
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             int result = JOptionPane.showConfirmDialog(null, "No data found. Load sample data?", "Datastore", JOptionPane.YES_NO_OPTION);
             if (result == JOptionPane.YES_OPTION)
             {
@@ -108,16 +113,22 @@ public class Datastore implements Serializable {
                 for (x=0; x<10; x++)
                 {
                     Car car = new Car("CAR0" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark01, "Sample Car");
+                    Insurance insurance = new Insurance("Company0"+x,"Number0"+x,new Date(), new Date(),car);
+                    car.setInsurance(insurance);
                     newStore.AddCar(car);
                 }
                 for (x=0; x<10; x++)
                 {
                     Car car = new Car("CAR1" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark02, "Sample Car");
+                    Insurance insurance = new Insurance("Company1"+x,"Number1"+x,new Date(), new Date(),car);
+                    car.setInsurance(insurance);
                     newStore.AddCar(car);
                 }
                 for (x=0; x<10; x++)
                 {
                     Car car = new Car("CAR2" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark03, "Sample Car");
+                    Insurance insurance = new Insurance("Company2"+x,"Number2"+x,new Date(), new Date(),car);
+                    car.setInsurance(insurance);
                     newStore.AddCar(car);
                 }
 
