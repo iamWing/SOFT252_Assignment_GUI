@@ -33,16 +33,16 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     }
 
     public void loadCarInfo(Car selectedVehicle) {
-        txtCarBrand.setText(tempCar.getBrand());
-        txtCarModel.setText(tempCar.getModel());
-        txtCarID.setText(tempCar.getCARID());
-        txtDescription.setText(tempCar.getDescription());
-        txtInsuranceCompany.setText(tempCar.getInsurance().getCompany());
-        txtInsuranceNumber.setText(String.valueOf(tempCar.getInsurance().getInsuranceNumber()));
-        txtInsuranceStart.setDate(tempCar.getInsurance().getStartDate());
-        txtInsuranceEnd.setDate(tempCar.getInsurance().getEndDate());
-        txtNumberSeats.setText(String.valueOf(tempCar.getSeats()));
-        txtParkLoc.setText(tempCar.getLocation().toString());
+        txtCarBrand.setText(selectedVehicle.getBrand());
+        txtCarModel.setText(selectedVehicle.getModel());
+        txtCarID.setText(selectedVehicle.getCARID());
+        txtDescription.setText(selectedVehicle.getDescription());
+        txtInsuranceCompany.setText(selectedVehicle.getInsurance().getCompany());
+        txtInsuranceNumber.setText(String.valueOf(selectedVehicle.getInsurance().getInsuranceNumber()));
+        txtInsuranceStart.setDate(selectedVehicle.getInsurance().getStartDate());
+        txtInsuranceEnd.setDate(selectedVehicle.getInsurance().getEndDate());
+        txtNumberSeats.setText(String.valueOf(selectedVehicle.getSeats()));
+        txtParkLoc.setText(selectedVehicle.getLocation().toString());
 
         carToDelete = selectedVehicle;
     }

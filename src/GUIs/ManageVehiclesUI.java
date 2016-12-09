@@ -103,7 +103,10 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
 
     private void listManageVehiclesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listManageVehiclesValueChanged
         if(listManageVehicles.getSelectedIndex() != -1)
-            vehicleDetailsPanel1.loadCarInfo(dataStore.GetCarAtIndex(listManageVehicles.getSelectedIndex()));
+        {
+            System.out.println(" " + listManageVehicles.getSelectedIndex());
+            vehicleDetailsPanel1.loadCarInfo(dataStore.GetCars().get(listManageVehicles.getSelectedIndex()));
+        }
     }//GEN-LAST:event_listManageVehiclesValueChanged
 
     private void btnForceRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceRefreshActionPerformed
