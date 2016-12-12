@@ -7,6 +7,10 @@ package GUIs;
 
 import commands.CommandTracker;
 import commands.interfaces.ICommandTracker;
+import data.Datastore;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import models.Staff;
 
 /**
  *
@@ -14,13 +18,16 @@ import commands.interfaces.ICommandTracker;
  */
 public class ManageStaffUI extends javax.swing.JPanel {
     private ICommandTracker UndoHistory;
+    Datastore dataStore;
 
     /**
      * Creates new form ManageStaffUI
      */
     public ManageStaffUI() {
         UndoHistory = new CommandTracker();
+        dataStore = Datastore.GetDatastore();
         initComponents();
+        RefreshList();
     }
 
     /**
@@ -86,6 +93,17 @@ public class ManageStaffUI extends javax.swing.JPanel {
     private void listManageStaffMembersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listManageStaffMembersValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_listManageStaffMembersValueChanged
+    private void RefreshList()
+    {
+        ArrayList<Staff> staffList = dataStore.GetStaff();
+        DefaultListModel<Staff> model = new DefaultListModel<>();
+        for( Staff staff : staffList)
+        {
+            model.addElement(staff);
+        }
+        listManageStaffMembers.setModel(model);
+    }
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -93,7 +111,7 @@ public class ManageStaffUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JList<String> listHistoryStaffMembers;
-    private javax.swing.JList<String> listManageStaffMembers;
+    private javax.swing.JList<Staff> listManageStaffMembers;
     private GUIs.StaffDetailsPanel staffDetailsPanel1;
     // End of variables declaration//GEN-END:variables
 }

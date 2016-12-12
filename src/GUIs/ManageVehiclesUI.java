@@ -117,11 +117,11 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     private void RefreshList()
     {
         ArrayList<Car> carList = dataStore.GetCars();
-        DefaultListModel<String> model = new DefaultListModel<>();
+        DefaultListModel<Car> model = new DefaultListModel<>();
         System.out.println("ButtonPressed");
         for( Car car : carList)
         {
-            model.addElement(car.getCARID() + " " +car.getBrand());
+            model.addElement(car);
         }
         listManageVehicles.setModel(model);
     }
@@ -132,7 +132,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JList<String> listHistoryCars;
-    private javax.swing.JList<String> listManageVehicles;
+    private javax.swing.JList<Car> listManageVehicles;
     private GUIs.VehicleDetailsPanel vehicleDetailsPanel1;
     // End of variables declaration//GEN-END:variables
 }
