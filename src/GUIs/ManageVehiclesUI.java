@@ -20,11 +20,8 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     /**
      * Creates new form ManageVehiclesUI
      */
-    Datastore dataStore;
-    
     public ManageVehiclesUI() {
         initComponents();
-        dataStore = Datastore.GetDatastore();
         RefreshList();
     }
 
@@ -116,7 +113,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnForceRefreshActionPerformed
     private void RefreshList()
     {
-        ArrayList<Car> carList = dataStore.GetCars();
+        ArrayList<Car> carList = Datastore.GetCars();
         DefaultListModel<Car> model = new DefaultListModel<>();
         System.out.println("ButtonPressed");
         for( Car car : carList)

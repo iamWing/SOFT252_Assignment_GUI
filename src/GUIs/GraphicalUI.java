@@ -9,6 +9,8 @@ import commands.CommandTracker;
 import commands.interfaces.ICommandTracker;
 import commands.vehicleManagement.AddVehicle;
 import data.Datastore;
+import java.io.File;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -17,16 +19,21 @@ import data.Datastore;
 public class GraphicalUI extends javax.swing.JFrame {
 
     private ICommandTracker UndoHistory;
-    private Datastore dataStore;
     /**
-     * Creates new form GraphicalUI
+     * Creates new form GraphicalUI, Loading the specified database.
      */
-    public GraphicalUI() {
-        dataStore = Datastore.GetDatastore();
+    public GraphicalUI(String fileName) {
+        Datastore.LoadDatastore(fileName);
         UndoHistory = new CommandTracker();
         initComponents();
     }
     
+    /**
+     * Creates new form GraphicalUI, Loading the default database.
+     */
+    public GraphicalUI() {
+        this("./default.dat");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,6 +50,8 @@ public class GraphicalUI extends javax.swing.JFrame {
         manageVehiclesUI1 = new GUIs.ManageVehiclesUI();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        menuChangeDatabase = new javax.swing.JMenuItem();
+        menuExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,6 +66,25 @@ public class GraphicalUI extends javax.swing.JFrame {
         jTabbedPane2.addTab("Manage Vehicles", manageVehiclesUI1);
 
         jMenu1.setText("File");
+
+        menuChangeDatabase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuChangeDatabase.setText("Change Database");
+        menuChangeDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuChangeDatabaseActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuChangeDatabase);
+
+        menuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        menuExit.setText("Exit");
+        menuExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuExit);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -83,6 +111,26 @@ public class GraphicalUI extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         Datastore.Save();
     }//GEN-LAST:event_formWindowClosing
+
+    private void menuChangeDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChangeDatabaseActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Open Database");
+        chooser.setCurrentDirectory(new File("."));
+        chooser.showOpenDialog(this);
+        File newDB = chooser.getSelectedFile();
+        if (newDB != null && !newDB.isDirectory())
+        {
+            Datastore.Save();
+            this.dispose();
+            GraphicalUI newWindow = new GraphicalUI(newDB.getAbsolutePath());
+            newWindow.show();
+        }
+    }//GEN-LAST:event_menuChangeDatabaseActionPerformed
+
+    private void menuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExitActionPerformed
+        Datastore.Save();
+        System.exit(0);
+    }//GEN-LAST:event_menuExitActionPerformed
     
     /**
      * @param args the command line arguments
@@ -128,5 +176,7 @@ public class GraphicalUI extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private GUIs.ManageStaffUI manageStaffUI1;
     private GUIs.ManageVehiclesUI manageVehiclesUI1;
+    private javax.swing.JMenuItem menuChangeDatabase;
+    private javax.swing.JMenuItem menuExit;
     // End of variables declaration//GEN-END:variables
 }

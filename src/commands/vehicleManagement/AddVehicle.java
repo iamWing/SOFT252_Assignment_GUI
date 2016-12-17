@@ -32,20 +32,17 @@ public class AddVehicle implements ICommandBehavior {
 
     @Override
     public boolean executeCommand() throws Exception {
-        Datastore ds = Datastore.GetDatastore();
-	
         for (CarParks CarPark : CarParks.values()) {
-            for (Car obj : ds.GetCars(CarPark)) {
+            for (Car obj : Datastore.GetCars(CarPark)) {
                 if (obj.getCARID().hashCode() == vehicle.getCARID().hashCode())
                     throw new Exception("CARID existed");
             }
         }
-        return ds.AddCar(vehicle);
+        return Datastore.AddCar(vehicle);
     }
 
     @Override
     public boolean undoCommand() {
-        Datastore ds = Datastore.GetDatastore();
-        return ds.RemoveCar(vehicle);
+        return Datastore.RemoveCar(vehicle);
     }
 }

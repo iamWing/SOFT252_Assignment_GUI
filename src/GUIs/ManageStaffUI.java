@@ -18,14 +18,12 @@ import models.Staff;
  */
 public class ManageStaffUI extends javax.swing.JPanel {
     private ICommandTracker UndoHistory;
-    Datastore dataStore;
 
     /**
      * Creates new form ManageStaffUI
      */
     public ManageStaffUI() {
         UndoHistory = new CommandTracker();
-        dataStore = Datastore.GetDatastore();
         initComponents();
         RefreshList();
     }
@@ -95,7 +93,7 @@ public class ManageStaffUI extends javax.swing.JPanel {
     }//GEN-LAST:event_listManageStaffMembersValueChanged
     private void RefreshList()
     {
-        ArrayList<Staff> staffList = dataStore.GetStaff();
+        ArrayList<Staff> staffList = Datastore.GetStaff();
         DefaultListModel<Staff> model = new DefaultListModel<>();
         for( Staff staff : staffList)
         {
