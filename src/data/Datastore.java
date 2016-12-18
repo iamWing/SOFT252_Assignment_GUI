@@ -7,6 +7,7 @@ package data;
  */
 
 
+import exceptions.DatastoreNotLoadedException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -36,8 +37,10 @@ public class Datastore implements Serializable {
     public Datastore()
     {
     }
-    public static boolean AddCar(Car car)
+    public static boolean AddCar(Car car) throws DatastoreNotLoadedException
     {
+        if (Datastore.store == null)
+            throw new DatastoreNotLoadedException();
         return Datastore.store.cars.add(car);
     }
     public static ArrayList<Car> GetCars(CarParks location)
@@ -68,17 +71,23 @@ public class Datastore implements Serializable {
         }
         return foundCars;
     }
-    public static Car GetCarAtIndex(int index)
+    public static Car GetCarAtIndex(int index) throws DatastoreNotLoadedException
     {
+        if (Datastore.store == null)
+            throw new DatastoreNotLoadedException();
         return Datastore.store.cars.get(index);
     }
     
-    public static boolean RemoveCar(Car car)
+    public static boolean RemoveCar(Car car) throws DatastoreNotLoadedException
     {
+        if (Datastore.store == null)
+            throw new DatastoreNotLoadedException();
         return Datastore.store.cars.remove(car);
     }
-    public static boolean AddStaff(Staff staff)
+    public static boolean AddStaff(Staff staff) throws DatastoreNotLoadedException
     {
+        if (Datastore.store == null)
+            throw new DatastoreNotLoadedException();
         return Datastore.store.staff.add(staff);
     }
     public static ArrayList<Staff> GetStaff()
@@ -94,8 +103,10 @@ public class Datastore implements Serializable {
         }
         return foundStaff;
     }
-    public static boolean RemoveStaff(Staff staff)
+    public static boolean RemoveStaff(Staff staff) throws DatastoreNotLoadedException
     {
+        if (Datastore.store == null)
+            throw new DatastoreNotLoadedException();
         return Datastore.store.staff.remove(staff);
     }
     public static Datastore GetDatastore()
