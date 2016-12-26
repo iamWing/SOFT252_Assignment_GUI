@@ -172,7 +172,6 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     {
         ArrayList<Car> carList = Datastore.GetCars();
         DefaultListModel<Car> model = new DefaultListModel<>();
-        System.out.println("ButtonPressed");
         for( Car car : carList)
         {
             model.addElement(car);

@@ -43,6 +43,7 @@ public class ManageStaffUI extends javax.swing.JPanel {
         jScrollPane6 = new javax.swing.JScrollPane();
         listManageStaffMembers = new javax.swing.JList<>();
         staffDetailsPanel1 = new GUIs.StaffDetailsPanel();
+        forceRefreshButton = new javax.swing.JButton();
 
         jScrollPane7.setViewportView(listHistoryStaffMembers);
 
@@ -55,6 +56,13 @@ public class ManageStaffUI extends javax.swing.JPanel {
         });
         jScrollPane6.setViewportView(listManageStaffMembers);
 
+        forceRefreshButton.setText("Force Refresh");
+        forceRefreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forceRefreshButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -64,7 +72,9 @@ public class ManageStaffUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane7)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                            .addComponent(forceRefreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(staffDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -79,7 +89,9 @@ public class ManageStaffUI extends javax.swing.JPanel {
                     .addComponent(staffDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(forceRefreshButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel42)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -91,6 +103,12 @@ public class ManageStaffUI extends javax.swing.JPanel {
     private void listManageStaffMembersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listManageStaffMembersValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_listManageStaffMembersValueChanged
+
+    private void forceRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forceRefreshButtonActionPerformed
+        // TODO add your handling code here:
+        RefreshList();
+        
+    }//GEN-LAST:event_forceRefreshButtonActionPerformed
     private void RefreshList()
     {
         ArrayList<Staff> staffList = Datastore.GetStaff();
@@ -105,6 +123,7 @@ public class ManageStaffUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton forceRefreshButton;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
