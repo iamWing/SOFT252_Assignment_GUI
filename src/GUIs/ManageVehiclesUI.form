@@ -33,18 +33,18 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jXDatePicker1" min="-2" max="-2" attributes="0"/>
+                              <Component id="dpInDate" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jXDatePicker2" min="-2" max="-2" attributes="0"/>
+                              <Component id="dpOutDate" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton1" max="32767" attributes="0"/>
-                          <Component id="jButton2" pref="138" max="32767" attributes="0"/>
+                          <Component id="btnAddService" max="32767" attributes="0"/>
+                          <Component id="btnRemoveService" pref="138" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -85,15 +85,15 @@
                       <Component id="jScrollPane6" min="-2" pref="187" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jXDatePicker1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAddService" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dpInDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jXDatePicker2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dpOutDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRemoveService" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jScrollPane5" max="32767" attributes="0"/>
@@ -179,19 +179,19 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnAddService">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Service"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnRemoveService">
       <Properties>
         <Property name="text" type="java.lang.String" value="Remove Service"/>
       </Properties>
     </Component>
-    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="dpInDate">
     </Component>
-    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker2">
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="dpOutDate">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
