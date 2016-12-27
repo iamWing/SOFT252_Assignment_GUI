@@ -34,7 +34,7 @@ public class AddVehicle implements ICommandBehavior {
     public boolean executeCommand() throws Exception {
         for (CarParks CarPark : CarParks.values()) {
             for (Car obj : Datastore.GetCars(CarPark)) {
-                if (obj.getCARID().hashCode() == vehicle.getCARID().hashCode())
+                if (obj.getCARID().equals(vehicle.getCARID()))
                     throw new Exception("CARID existed");
             }
         }

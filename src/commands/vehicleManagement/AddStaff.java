@@ -29,7 +29,7 @@ public class AddStaff implements ICommandBehavior {
     {
         for(Staff curStaff : Datastore.GetStaff())
         {
-            if(curStaff.getSTAFFID().hashCode() == staff.getSTAFFID().hashCode())
+            if(curStaff.getSTAFFID().equals(staff.getSTAFFID()))
                 throw new Exception("STAFF ID exists");
         }
         return Datastore.AddStaff(staff);
