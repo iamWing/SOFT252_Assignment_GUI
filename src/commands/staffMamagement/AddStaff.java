@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package commands.vehicleManagement;
+package commands.staffMamagement;
 
 import commands.interfaces.ICommandBehavior;
 import data.Datastore;
