@@ -17,14 +17,16 @@ import models.CarParks;
 public class RemoveVehicle implements ICommandBehavior{
     private Car car;
     
-    public RemoveVehicle(String _carId) {
-        car = new Car(_carId);
+    public RemoveVehicle(String _carId) throws Exception {
+        for (Car _car : Datastore.GetCars()) {
+            if (_car.getCARID().equals(_carId)) {
+                car = _car;
+            }
+
+            throw new Exception("CARID does not exist");
+        }
     }
 
-    public RemoveVehicle(String _carId, String _brand, String _model, 
-            int _seats, CarParks _loc, String _desc) {
-        car = new Car(_carId, _brand, _model, _seats, _loc, _desc);
-    } 
     public RemoveVehicle(Car _car)
     {
         car = _car;

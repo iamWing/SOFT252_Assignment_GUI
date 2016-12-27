@@ -16,13 +16,19 @@ import models.Staff;
 public class RemoveStaff implements ICommandBehavior{
     private Staff staff;
     
-    public RemoveStaff(String _STAFFID, String _fName, String _lName, String _address, String _licenseNumber, String _licenseType)
+    public RemoveStaff(String _staffId) throws Exception
     {
-        staff = new Staff(_STAFFID, _fName, _lName, _address, _licenseNumber, _licenseType);        
+        for (Staff _staff : Datastore.GetStaff()) {
+            if (_staff.getSTAFFID().equals(_staffId))
+                staff = _staff;
+        }
+        
+        throw new Exception ("Staff ID does not exist");
     }
-    public RemoveStaff( Staff _staff)
+    public RemoveStaff(Staff _staff)
     {
-        staff = _staff;
+        if (_staff != null)
+            staff = _staff;
     }
     
     @Override
@@ -35,7 +41,7 @@ public class RemoveStaff implements ICommandBehavior{
     {
         for( Staff curStaff : Datastore.GetStaff())
         {
-            if(curStaff.getSTAFFID().hashCode() == staff.getSTAFFID().hashCode())
+            if(curStaff.getSTAFFID().equals(staff.getSTAFFID()))
                 throw new Exception ("Staff ID exists");
         }
         return Datastore.AddStaff(staff);
