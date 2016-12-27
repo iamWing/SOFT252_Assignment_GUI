@@ -347,7 +347,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             cmdTracker.executeCommand(cmd);
             clearCarInfo();
             selectedCar = null;
-            clearCarInfo();
+            disableSaveButton();
+            disableDeleteButton();
             infoBox("Car information updated.", "Operation successful");
         } catch (Exception ex) {
             System.err.print(ex.getMessage());
@@ -366,7 +367,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             cmdTracker.executeCommand(cmd);
             clearCarInfo();
             selectedCar = null;
-            
+            disableDeleteButton();
+            disableSaveButton();
             infoBox("Car deleted from list.", "Operation successful");
         }catch(Exception ex)
         {

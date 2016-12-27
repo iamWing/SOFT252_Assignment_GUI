@@ -102,6 +102,11 @@ public class ManageStaffUI extends javax.swing.JPanel {
 
     private void listManageStaffMembersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listManageStaffMembersValueChanged
         // TODO add your handling code here:
+        if(listManageStaffMembers.getSelectedIndex() != -1)
+        {
+            staffDetailsPanel1.loadStaffInfo(listManageStaffMembers.getSelectedValue());
+        }
+        
     }//GEN-LAST:event_listManageStaffMembersValueChanged
 
     private void forceRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forceRefreshButtonActionPerformed

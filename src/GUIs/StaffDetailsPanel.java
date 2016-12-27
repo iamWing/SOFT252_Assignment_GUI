@@ -9,6 +9,7 @@ import commands.Command;
 import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.AddStaff;
+import commands.vehicleManagement.RemoveStaff;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -21,7 +22,7 @@ import models.Staff;
 public class StaffDetailsPanel extends javax.swing.JPanel {
 
     
-    Staff staffToDelete;
+    Staff selectedStaff;
     CommandTracker cmdTracker = new CommandTracker();
     DocumentListener documentListener;
     
@@ -205,22 +206,53 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
         
-        // Delete staff from list
+        ICommandBehavior cmdBehavior = new RemoveStaff(selectedStaff);
+        Command cmd = new Command (cmdBehavior);
         
-         Staff tempStaff = createStaffFromTextBoxes();
+        try
+        {
+            cmdTracker.executeCommand(cmd);
+            selectedStaff = null;
+        }catch(Exception ex)
+        {
+            System.err.print(ex.getMessage());
+        }
         
-        // Add new staff to list
-            
-        infoBox("Staff removed successfully.","Operation successful");
+        cmdBehavior = new AddStaff(createStaffFromTextBoxes());
+        cmd = new Command (cmdBehavior);
+        
+        try
+        {
+            cmdTracker.executeCommand(cmd);
+            clearStaffInfo();
+            selectedStaff = null;
+            disableSaveButton();
+            disableDeleteButton();
+            infoBox("Staff information updated.", "Operation successful");
+        }catch(Exception ex)
+        {
+            System.err.print(ex.getMessage());
+        }
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
         
-        //Delete staff from list
+        ICommandBehavior cmdBehavior = new RemoveStaff(selectedStaff);
+        Command cmd = new Command (cmdBehavior);
+        
+        try
+        {
+            cmdTracker.executeCommand(cmd);
+            selectedStaff = null;
+            clearStaffInfo();
+            disableDeleteButton();
+            
+        }catch(Exception ex)
+        {
+            System.err.print(ex.getMessage());
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
     
     public void infoBox(String infoMessage, String titleBar)
@@ -263,7 +295,8 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         txtAdress.setText(tempStaff.getAddress());
         
         disableSaveButton();
-        staffToDelete =tempStaff;
+        enableDeleteButton();
+        selectedStaff =tempStaff;
     }
     
     private Staff createStaffFromTextBoxes()
@@ -303,7 +336,7 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
     
     public void warn()
     {
-        if(staffToDelete != null)
+        if(selectedStaff != null)
         {
             enableSaveButton();
         }
