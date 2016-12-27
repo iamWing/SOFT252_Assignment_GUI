@@ -42,7 +42,7 @@ public class RemoveVehicle implements ICommandBehavior{
     {
         for (CarParks CarPark : CarParks.values()) {
             for (Car obj : Datastore.GetCars(CarPark)) {
-                if (obj.getCARID().hashCode() == car.getCARID().hashCode())
+                if (obj.getCARID().equals(car.getCARID()))
                     throw new Exception("CARID existed");
             }
         }
