@@ -5,7 +5,12 @@
  */
 package GUIs;
 
+import data.Datastore;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import models.Car;
 import models.CarParks;
+import models.Staff;
 
 /**
  *
@@ -37,30 +42,44 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstVehicles = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lstVehicle = new javax.swing.JList<>();
-        btnAdd = new javax.swing.JButton();
+        lstStaffMembers = new javax.swing.JList<>();
+        btnAssignVehicle = new javax.swing.JButton();
         lstLocation = new javax.swing.JComboBox<>();
         staffDetailsPanel1 = new GUIs.StaffDetailsPanel();
         vehicleDetailsPanel1 = new GUIs.VehicleDetailsPanel();
+        btnForceRefresh = new javax.swing.JButton();
 
-        lstVehicles.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        lstVehicles.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstVehiclesValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(lstVehicles);
 
-        lstVehicle.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        lstStaffMembers.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstStaffMembersValueChanged(evt);
+            }
         });
-        jScrollPane2.setViewportView(lstVehicle);
+        jScrollPane2.setViewportView(lstStaffMembers);
 
-        btnAdd.setText("Assign Vehicle");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnAssignVehicle.setText("Assign Vehicle");
+        btnAssignVehicle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnAssignVehicleActionPerformed(evt);
+            }
+        });
+
+        lstLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lstLocationActionPerformed(evt);
+            }
+        });
+
+        btnForceRefresh.setText("Force Refresh Lists");
+        btnForceRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForceRefreshActionPerformed(evt);
             }
         });
 
@@ -71,52 +90,91 @@ public class AssignVehicleUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addComponent(lstLocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(staffDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(btnForceRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(staffDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                    .addComponent(btnAssignVehicle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lstLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lstLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnForceRefresh))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2))
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(staffDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnAssignVehicle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddActionPerformed
+    private void btnAssignVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignVehicleActionPerformed
+        
+    }//GEN-LAST:event_btnAssignVehicleActionPerformed
 
+    private void lstLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstLocationActionPerformed
+        RefreshLists();
+    }//GEN-LAST:event_lstLocationActionPerformed
+
+    private void lstVehiclesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstVehiclesValueChanged
+        if(lstVehicles.getSelectedIndex() != -1)
+        {
+            vehicleDetailsPanel1.loadCarInfo(lstVehicles.getSelectedValue());
+        }
+    }//GEN-LAST:event_lstVehiclesValueChanged
+
+    private void lstStaffMembersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstStaffMembersValueChanged
+        if(lstStaffMembers.getSelectedIndex() != -1)
+        {
+            staffDetailsPanel1.loadStaffInfo(lstStaffMembers.getSelectedValue());
+        }
+    }//GEN-LAST:event_lstStaffMembersValueChanged
+
+    private void btnForceRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceRefreshActionPerformed
+        RefreshLists();
+    }//GEN-LAST:event_btnForceRefreshActionPerformed
+    private void RefreshLists()
+    {
+        ArrayList<Car> carList = Datastore.GetCars();
+        DefaultListModel<Car> model = new DefaultListModel<>();
+        for( Car car : carList)
+        {
+            model.addElement(car);
+        }
+        lstVehicles.setModel(model);
+        
+        ArrayList<Staff> staffList = Datastore.GetStaff();
+        DefaultListModel<Staff> modelStaff = new DefaultListModel<>();
+        for( Staff staff : staffList)
+        {
+            modelStaff.addElement(staff);
+        }
+        lstStaffMembers.setModel(modelStaff);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAssignVehicle;
+    private javax.swing.JButton btnForceRefresh;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> lstLocation;
-    private javax.swing.JList<String> lstVehicle;
-    private javax.swing.JList<String> lstVehicles;
+    private javax.swing.JList<Staff> lstStaffMembers;
+    private javax.swing.JList<Car> lstVehicles;
     private GUIs.StaffDetailsPanel staffDetailsPanel1;
     private GUIs.VehicleDetailsPanel vehicleDetailsPanel1;
     // End of variables declaration//GEN-END:variables
