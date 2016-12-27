@@ -9,6 +9,7 @@ import commands.Command;
 import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.AddVehicle;
+import commands.vehicleManagement.RemoveVehicle;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -77,6 +78,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtParkLoc.setText(selectedVehicle.getLocation().toString());
 
         disableSaveButton();
+        enableDeleteButton();
         selectedCar = selectedVehicle;
     }
 
@@ -324,36 +326,56 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCarModelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
 
-        
-        // Delete Car that has been selected before
-
-        //Add Car that has been created.
-        ICommandBehavior cmdBehavior = new AddVehicle(createCarFromTextBoxes());
+        ICommandBehavior cmdBehavior = new RemoveVehicle(selectedCar);
         Command cmd = new Command(cmdBehavior);
+        
+        try
+        {
+            cmdTracker.executeCommand(cmd);
+            selectedCar = null;
+            
+        }catch(Exception ex)
+        {
+            System.err.print(ex.getMessage());
+        }
+        
+        cmdBehavior = new AddVehicle(createCarFromTextBoxes());
+        cmd = new Command(cmdBehavior);
 
         try {
             cmdTracker.executeCommand(cmd);
             clearCarInfo();
-            infoBox("Car added successfully.", "Operation successful");
+            selectedCar = null;
+            disableSaveButton();
+            disableDeleteButton();
+            infoBox("Car information updated.", "Operation successful");
         } catch (Exception ex) {
             System.err.print(ex.getMessage());
         }
         
-        selectedCar = null;
-        clearCarInfo();
-        infoBox("Car information updated.", "Operation successful");
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        clearCarInfo();
-        // Delete Car that has been selected before
-
+       
+        ICommandBehavior cmdBehavior = new RemoveVehicle(selectedCar);
+        Command cmd = new Command(cmdBehavior);
         
-        selectedCar = null;
-        infoBox("Car deleted from list.", "Operation successful");
+        try
+        {
+            cmdTracker.executeCommand(cmd);
+            clearCarInfo();
+            selectedCar = null;
+            disableDeleteButton();
+            disableSaveButton();
+            infoBox("Car deleted from list.", "Operation successful");
+        }catch(Exception ex)
+        {
+            System.err.print(ex.getMessage());
+        }
+        
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     public void enableSaveButton() {

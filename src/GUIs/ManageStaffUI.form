@@ -21,7 +21,10 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jScrollPane7" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane6" min="-2" pref="228" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jScrollPane6" pref="228" max="32767" attributes="0"/>
+                          <Component id="forceRefreshButton" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="staffDetailsPanel1" max="32767" attributes="0"/>
                   </Group>
@@ -39,9 +42,11 @@
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="staffDetailsPanel1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane6" min="-2" pref="265" max="-2" attributes="0"/>
+                      <Component id="jScrollPane6" min="-2" pref="241" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="forceRefreshButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -101,6 +106,14 @@
       </SubComponents>
     </Container>
     <Component class="GUIs.StaffDetailsPanel" name="staffDetailsPanel1">
+    </Component>
+    <Component class="javax.swing.JButton" name="forceRefreshButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Force Refresh"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="forceRefreshButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
