@@ -70,19 +70,19 @@ public class EditStaff implements ICommandBehavior {
     public boolean undoCommand() throws Exception {
         for (Staff _staff : Datastore.GetStaff()) {
             if (_staff == staff) {
-                if (staff.getForeName() != _fName) {
+                if (!staff.getForeName().equals(_fName)) {
                     staff.setForeName(_fName);
                 }
-                if (staff.getLastName() != _lName) {
+                if (!staff.getLastName().equals(_lName)) {
                     staff.setLastName(_lName);
                 }
-                if (staff.getAddress() != _addr) {
+                if (!staff.getAddress().equals(_addr)) {
                     staff.setAddress(_addr);
                 }
-                if (staff.getLicenseNumber() != _licenseNumber) {
+                if (!staff.getLicenseNumber().equals(_licenseNumber)) {
                     staff.setLicenseNumber(_licenseNumber);
                 }
-                if (staff.getLicenseType() != _licenseType) {
+                if (!staff.getLicenseType().equals(_licenseType)) {
                     staff.setLicenseType(_licenseType);
                 }
                 return true;
