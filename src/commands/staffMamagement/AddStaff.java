@@ -16,9 +16,9 @@ import models.Staff;
 public class AddStaff implements ICommandBehavior {
     private Staff staff;
     
-    public AddStaff(String _STAFFID, String _fName, String _lName, String _address, String _licenseNumber, String _licenseType)
+    public AddStaff(String _staffId, String _fName, String _lName, String _address, String _licenseNumber, String _licenseType)
     {
-        staff = new Staff(_STAFFID, _fName, _lName, _address, _licenseNumber, _licenseType);        
+        staff = new Staff(_staffId, _fName, _lName, _address, _licenseNumber, _licenseType);        
     }
     public AddStaff( Staff _staff)
     {
@@ -30,7 +30,7 @@ public class AddStaff implements ICommandBehavior {
         for(Staff curStaff : Datastore.GetStaff())
         {
             if(curStaff.getSTAFFID().equals(staff.getSTAFFID()))
-                throw new Exception("STAFF ID exists");
+                throw new Exception("Staff ID exists");
         }
         return Datastore.AddStaff(staff);
     }
