@@ -158,13 +158,19 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         {
             System.out.println(" " + listManageVehicles.getSelectedIndex());
             vehicleDetailsPanel1.loadCarInfo(listManageVehicles.getSelectedValue());
-            ArrayList<AllocationRecord> allocationHistory = listManageVehicles.getSelectedValue().getAllocationRecords();
-            DefaultListModel<String> model = new DefaultListModel<>();
-            for( AllocationRecord rec : allocationHistory)
+            try
             {
-                model.addElement(rec.getStaff().getSTAFFID() + "-" + rec.getStaff().getForeName() + " " +rec.getStaff().getLastName() + " - " + rec.getStarDate().toString());
+                ArrayList<AllocationRecord> allocationHistory = listManageVehicles.getSelectedValue().getAllocationRecords();
+                DefaultListModel<String> model = new DefaultListModel<>();
+                for( AllocationRecord rec : allocationHistory)
+                {
+                    model.addElement(rec.getStaff().getSTAFFID() + "-" + rec.getStaff().getForeName() + " " +rec.getStaff().getLastName() + " - " + rec.getStarDate().toString());
+                }
+                listHistoryForCar.setModel(model);
+            }catch(Exception ex)
+            {
+                System.err.print(ex.getMessage());
             }
-            listHistoryForCar.setModel(model);
         }
     }//GEN-LAST:event_listManageVehiclesValueChanged
 
