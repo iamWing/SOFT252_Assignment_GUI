@@ -18,6 +18,9 @@ import models.Staff;
  */
 public class AssignVehicleUI extends javax.swing.JPanel {
 
+    
+    private Car selectedCar;
+    private Staff selectedStaff;
     /**
      * Creates new form AssignVehicleUI
      */
@@ -64,6 +67,7 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         jScrollPane2.setViewportView(lstStaffMembers);
 
         btnAssignVehicle.setText("Assign Vehicle");
+        btnAssignVehicle.setEnabled(false);
         btnAssignVehicle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAssignVehicleActionPerformed(evt);
@@ -135,6 +139,15 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         if(lstVehicles.getSelectedIndex() != -1)
         {
             vehicleDetailsPanel1.loadCarInfo(lstVehicles.getSelectedValue());
+            selectedCar = lstVehicles.getSelectedValue();
+            if(lstStaffMembers.getSelectedIndex() != -1)
+            {
+                EnableAssignVehicleButton();
+            }
+        }
+        else
+        {
+            DisableAssignVehicleButton();
         }
     }//GEN-LAST:event_lstVehiclesValueChanged
 
@@ -142,6 +155,15 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         if(lstStaffMembers.getSelectedIndex() != -1)
         {
             staffDetailsPanel1.loadStaffInfo(lstStaffMembers.getSelectedValue());
+            selectedStaff = lstStaffMembers.getSelectedValue();
+            if(lstVehicles.getSelectedIndex() != -1)
+            {
+                EnableAssignVehicleButton();
+            }
+        }
+        else
+        {
+            DisableAssignVehicleButton();
         }
     }//GEN-LAST:event_lstStaffMembersValueChanged
 
@@ -166,6 +188,15 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         }
         lstStaffMembers.setModel(modelStaff);
     }
+    private void EnableAssignVehicleButton()
+    {
+        btnAssignVehicle.setEnabled(true);
+    }
+    private void DisableAssignVehicleButton()
+    {
+        btnAssignVehicle.setEnabled(false);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignVehicle;

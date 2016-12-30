@@ -109,6 +109,7 @@
     <Component class="javax.swing.JButton" name="btnAssignVehicle">
       <Properties>
         <Property name="text" type="java.lang.String" value="Assign Vehicle"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAssignVehicleActionPerformed"/>
