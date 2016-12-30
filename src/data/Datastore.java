@@ -7,6 +7,10 @@ package data;
  */
 
 
+import commands.Command;
+import commands.CommandTracker;
+import commands.interfaces.ICommandBehavior;
+import commands.vehicleManagement.AddInsurance;
 import exceptions.DatastoreNotLoadedException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -34,6 +38,9 @@ public class Datastore implements Serializable {
     private ArrayList<Staff> staff = new ArrayList<Staff>();
     public transient static Datastore store;
     public transient static String datastoreLocation;
+    
+    private static CommandTracker cmdTracker = new CommandTracker();
+    
     public Datastore()
     {
     }
@@ -141,22 +148,19 @@ public class Datastore implements Serializable {
                 for (x=0; x<10; x++)
                 {
                     Car car = new Car("CAR0" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark01, "Sample Car");
-                    Insurance insurance = new Insurance("Company0"+x,"Number0"+x,new Date(), new Date(),car);
-                    car.setInsurance(insurance);
+                    AddInsuranceToCar(car,"Company0"+x,"Number0"+x,new Date(), new Date());
                     Datastore.store.AddCar(car);
                 }
                 for (x=0; x<10; x++)
                 {
                     Car car = new Car("CAR1" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark02, "Sample Car");
-                    Insurance insurance = new Insurance("Company1"+x,"Number1"+x,new Date(), new Date(),car);
-                    car.setInsurance(insurance);
+                    AddInsuranceToCar(car,"Company1"+x,"Number1"+x,new Date(), new Date());
                     Datastore.store.AddCar(car);
                 }
                 for (x=0; x<10; x++)
                 {
                     Car car = new Car("CAR2" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark03, "Sample Car");
-                    Insurance insurance = new Insurance("Company2"+x,"Number2"+x,new Date(), new Date(),car);
-                    car.setInsurance(insurance);
+                    AddInsuranceToCar(car,"Company2"+x,"Number2"+x,new Date(), new Date());
                     Datastore.store.AddCar(car);
                 }
 
@@ -168,6 +172,19 @@ public class Datastore implements Serializable {
             }
         }
         return Datastore.store;
+    }
+    private static void AddInsuranceToCar(Car car, String insuranceCompany, String insuranceNumber, Date startDate, Date endDate)
+    {
+        ICommandBehavior cmdBehavior = new AddInsurance(car,insuranceCompany,insuranceNumber,startDate,endDate);
+        Command cmd = new Command(cmdBehavior);
+        
+        try
+        {
+            cmdTracker.executeCommand(cmd);
+        }catch(Exception ex)
+        {
+            System.err.print(ex.getMessage());
+        }
     }
     public static void Save()
     {

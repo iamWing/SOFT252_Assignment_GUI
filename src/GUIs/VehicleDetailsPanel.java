@@ -8,6 +8,7 @@ package GUIs;
 import commands.Command;
 import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
+import commands.vehicleManagement.AddInsurance;
 import commands.vehicleManagement.AddVehicle;
 import commands.vehicleManagement.RemoveVehicle;
 import javax.swing.JOptionPane;
@@ -15,7 +16,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import models.Car;
 import models.CarParks;
-import models.Insurance;
 
 /**
  *
@@ -420,8 +420,21 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         }
 
         tempCar = new Car(carID, carBrand, carModel, carNumberSeats, carLoc, carDescription);
-        Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(), txtInsuranceEnd.getDate(), tempCar);
-        tempCar.setInsurance(tempInsurance);
+        
+        ICommandBehavior cmdBehavior = new AddInsurance(tempCar,carInsuranceCompany,carInsuranceNumber,txtInsuranceStart.getDate(),txtInsuranceEnd.getDate());
+        Command cmd = new Command(cmdBehavior);
+        
+        try
+        {
+            cmdTracker.executeCommand(cmd);
+        }catch(Exception ex)
+        {
+            System.err.print(ex.getMessage());
+        }
+        
+        
+ //       Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(), txtInsuranceEnd.getDate(), tempCar);
+ //       tempCar.setInsurance(tempInsurance);
         return tempCar;
     }
 
