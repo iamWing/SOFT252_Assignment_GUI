@@ -8,7 +8,7 @@ package GUIs;
 import data.Datastore;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
+import models.AllocationRecord;
 import models.Car;
 
 /**
@@ -36,14 +36,14 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
 
         jLabel26 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        listHistoryCars = new javax.swing.JList<>();
+        listHistoryForCar = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         listManageVehicles = new javax.swing.JList<>();
         vehicleDetailsPanel1 = new GUIs.VehicleDetailsPanel();
         btnForceRefresh = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        listHistoryCars1 = new javax.swing.JList<>();
+        listServiceForCar = new javax.swing.JList<>();
         btnAddService = new javax.swing.JButton();
         btnRemoveService = new javax.swing.JButton();
         dpInDate = new org.jdesktop.swingx.JXDatePicker();
@@ -53,7 +53,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
 
         jLabel26.setText("H i s t o r y");
 
-        jScrollPane5.setViewportView(listHistoryCars);
+        jScrollPane5.setViewportView(listHistoryForCar);
 
         listManageVehicles.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -71,7 +71,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
 
         jLabel27.setText("S e r v i c e    H i s t o r y");
 
-        jScrollPane6.setViewportView(listHistoryCars1);
+        jScrollPane6.setViewportView(listServiceForCar);
 
         btnAddService.setText("Add Service");
 
@@ -88,12 +88,12 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                     .addComponent(jScrollPane4)
                     .addComponent(btnForceRefresh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                     .addComponent(jScrollPane6)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -158,7 +158,13 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         {
             System.out.println(" " + listManageVehicles.getSelectedIndex());
             vehicleDetailsPanel1.loadCarInfo(listManageVehicles.getSelectedValue());
-            
+            ArrayList<AllocationRecord> allocationHistory = listManageVehicles.getSelectedValue().getAllocationRecords();
+            DefaultListModel<String> model = new DefaultListModel<>();
+            for( AllocationRecord rec : allocationHistory)
+            {
+                model.addElement(rec.getStaff().getSTAFFID() + "-" + rec.getStaff().getForeName() + " " +rec.getStaff().getLastName() + " - " + rec.getStarDate().toString());
+            }
+            listHistoryForCar.setModel(model);
         }
     }//GEN-LAST:event_listManageVehiclesValueChanged
 
@@ -190,9 +196,9 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JList<String> listHistoryCars;
-    private javax.swing.JList<String> listHistoryCars1;
+    private javax.swing.JList<String> listHistoryForCar;
     private javax.swing.JList<Car> listManageVehicles;
+    private javax.swing.JList<String> listServiceForCar;
     private GUIs.VehicleDetailsPanel vehicleDetailsPanel1;
     // End of variables declaration//GEN-END:variables
 }
