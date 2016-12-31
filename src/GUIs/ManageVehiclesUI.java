@@ -7,6 +7,7 @@ package GUIs;
 
 import data.Datastore;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import models.AllocationRecord;
@@ -207,6 +208,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         {
             listManageVehicles.getSelectedValue().addServiceRecord(new Service(dpInDate.getDate(),dpOutDate.getDate(), txtServiceDescription.getText()));
             RefreshServiceListModel();
+            RefreshList();
         }
         else
             infoBox("In / out date must be selected", "Data expected");
@@ -219,6 +221,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         {
             listManageVehicles.getSelectedValue().removeServiceRecord(listServiceForCar.getSelectedValue());
             RefreshServiceListModel();
+            RefreshList();
         }
     }//GEN-LAST:event_btnRemoveServiceActionPerformed
     private void RefreshList()
@@ -227,7 +230,38 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         DefaultListModel<Car> model = new DefaultListModel<>();
         for( Car car : carList)
         {
+            try
+            {
+            ArrayList<Service> carServiceList = car.getServiceRecords();
+            car.setInService(false);
+            if(carServiceList != null)
+                for(Service serv : carServiceList)
+                {
+                    if(serv.getInDate().before(new Date()) && serv.getOutDate().after(new Date()))
+                    {
+                        car.setInService(true);
+                    }
+                }
+            ArrayList<AllocationRecord> carAllocationRecords = car.getAllocationRecords();
+            car.setAllocated(false);
+            if(carAllocationRecords != null)
+                for(AllocationRecord rec : carAllocationRecords)
+                {
+                    if(rec.getLongTermAllocation())
+                    {
+                        if(rec.getStarDate().before(new Date()) && rec.getEndDate().after(new Date()))
+                        {
+                            car.setAllocated(true);
+                        }
+                    }
+                }
+            }catch(Exception ex)
+            {
+                System.err.print(ex.getMessage());
+            }
+            
             model.addElement(car);
+            
         }
         listManageVehicles.setCellRenderer( new CustomCellRenderer());
         listManageVehicles.setModel(model);
