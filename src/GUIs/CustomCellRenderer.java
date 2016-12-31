@@ -29,11 +29,14 @@ public class CustomCellRenderer  extends DefaultListCellRenderer {
         if(value instanceof Car)
         {
             Car nextCar = (Car) value;
-            c.setForeground(Color.BLUE);
+            c.setForeground(new Color(0,100,0)); // Dark green
             if(nextCar.isAllocated())
-                c.setForeground(Color.YELLOW);
+                c.setForeground(Color.ORANGE);
+            if(nextCar.isInService())
+                c.setForeground(Color.GRAY);
             if(nextCar.isDamaged())
                 c.setForeground(Color.RED);
+            
         }
         
         if(value instanceof Staff)
