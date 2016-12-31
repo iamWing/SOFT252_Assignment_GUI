@@ -229,6 +229,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         {
             model.addElement(car);
         }
+        listManageVehicles.setCellRenderer( new CustomCellRenderer());
         listManageVehicles.setModel(model);
     }
     private void RefreshServiceListModel()
