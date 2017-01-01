@@ -25,6 +25,8 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
      */
     public ManageVehiclesUI() {
         initComponents();
+        
+        dpCurrentDate.setDate(new Date());
         RefreshList();
     }
 
@@ -55,6 +57,8 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtServiceDescription = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        dpCurrentDate = new org.jdesktop.swingx.JXDatePicker();
 
         jLabel26.setText("H i s t o r y");
 
@@ -98,16 +102,29 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
 
         jLabel3.setText("Description:");
 
+        jLabel4.setText("For Date:");
+
+        dpCurrentDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dpCurrentDateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4)
-                    .addComponent(btnForceRefresh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnForceRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dpCurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -144,7 +161,11 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(dpCurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnForceRefresh)
                         .addGap(15, 15, 15)))
                 .addGap(3, 3, 3)
@@ -223,6 +244,10 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
             RefreshList();
         }
     }//GEN-LAST:event_btnRemoveServiceActionPerformed
+
+    private void dpCurrentDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpCurrentDateActionPerformed
+        RefreshList();
+    }//GEN-LAST:event_dpCurrentDateActionPerformed
     private void RefreshList()
     {
         ArrayList<Car> carList = Datastore.GetCars();
@@ -231,32 +256,37 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         {
             try
             {
-            ArrayList<Service> carServiceList = car.getServiceRecords();
-            car.setInService(false);
-            if(carServiceList != null)
-                for(Service serv : carServiceList)
+                if(dpCurrentDate.getDate() == null)
                 {
-                    if(serv.getInDate().before(new Date()) && serv.getOutDate().after(new Date()))
-                    {
-                        car.setInService(true);
-                    }
+                    dpCurrentDate.setDate(new Date());
                 }
-            
-            
-            ArrayList<AllocationRecord> carAllocationRecords = car.getAllocationRecords();
-            car.setAllocated(false);
-            if(carAllocationRecords != null)
-                for(AllocationRecord rec : carAllocationRecords)
-                {
-                    System.out.println(car.getCARID() + " " + rec.getLongTermAllocation());
-                    if(rec.getLongTermAllocation())
+                
+                ArrayList<Service> carServiceList = car.getServiceRecords();
+                car.setInService(false);
+                if(carServiceList != null)
+                    for(Service serv : carServiceList)
                     {
-                        if(rec.getStarDate().before(new Date()) && rec.getEndDate().after(new Date()))
+                        if(serv.getInDate().before(dpCurrentDate.getDate()) && serv.getOutDate().after(dpCurrentDate.getDate()))
                         {
-                            car.setAllocated(true);
+                            car.setInService(true);
                         }
                     }
-                }
+
+
+                ArrayList<AllocationRecord> carAllocationRecords = car.getAllocationRecords();
+                car.setAllocated(false);
+                if(carAllocationRecords != null)
+                    for(AllocationRecord rec : carAllocationRecords)
+                    {
+                        System.out.println(car.getCARID() + " " + rec.getLongTermAllocation());
+                        if(rec.getLongTermAllocation())
+                        {
+                            if(rec.getStarDate().before(dpCurrentDate.getDate()) && rec.getEndDate().after(dpCurrentDate.getDate()))
+                            {
+                                car.setAllocated(true);
+                            }
+                        }
+                    }
             }catch(Exception ex)
             {
                 System.err.print(ex.getMessage());
@@ -298,6 +328,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     private javax.swing.JButton btnAddService;
     private javax.swing.JButton btnForceRefresh;
     private javax.swing.JButton btnRemoveService;
+    private org.jdesktop.swingx.JXDatePicker dpCurrentDate;
     private org.jdesktop.swingx.JXDatePicker dpInDate;
     private org.jdesktop.swingx.JXDatePicker dpOutDate;
     private javax.swing.JLabel jLabel1;
@@ -305,6 +336,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;

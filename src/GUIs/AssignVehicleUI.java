@@ -30,6 +30,8 @@ public class AssignVehicleUI extends javax.swing.JPanel {
     public AssignVehicleUI() {
         initComponents();
         
+        dpStartDate.setDate(new Date());
+        
         // --- init locations --- //
         for (CarParks loc : CarParks.values()) {
             lstLocation.addItem(loc);
