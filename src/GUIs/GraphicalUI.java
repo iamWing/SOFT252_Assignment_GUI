@@ -47,7 +47,8 @@ public class GraphicalUI extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         assignVehicleUI2 = new GUIs.AssignVehicleUI();
         manageStaffUI1 = new GUIs.ManageStaffUI();
-        manageVehiclesUI1 = new GUIs.ManageVehiclesUI();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        manageVehiclesUI2 = new GUIs.ManageVehiclesUI();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuChangeDatabase = new javax.swing.JMenuItem();
@@ -63,7 +64,10 @@ public class GraphicalUI extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Assign Vehicle", assignVehicleUI2);
         jTabbedPane2.addTab("Manage Staff", manageStaffUI1);
-        jTabbedPane2.addTab("Manage Vehicles", manageVehiclesUI1);
+
+        jScrollPane1.setViewportView(manageVehiclesUI2);
+
+        jTabbedPane2.addTab("Manage Vehicles", jScrollPane1);
 
         jMenu1.setText("File");
 
@@ -96,13 +100,15 @@ public class GraphicalUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,10 +178,11 @@ public class GraphicalUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private GUIs.ManageStaffUI manageStaffUI1;
-    private GUIs.ManageVehiclesUI manageVehiclesUI1;
+    private GUIs.ManageVehiclesUI manageVehiclesUI2;
     private javax.swing.JMenuItem menuChangeDatabase;
     private javax.swing.JMenuItem menuExit;
     // End of variables declaration//GEN-END:variables
