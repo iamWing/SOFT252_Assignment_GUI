@@ -11,6 +11,7 @@ import data.Datastore;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import models.AllocationRecord;
 import models.Staff;
 
 /**
@@ -41,7 +42,7 @@ public class ManageStaffUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane7 = new javax.swing.JScrollPane();
-        listHistoryStaffMembers = new javax.swing.JList<>();
+        listHistoryForStaff = new javax.swing.JList<>();
         jLabel42 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         listManageStaffMembers = new javax.swing.JList<>();
@@ -50,7 +51,7 @@ public class ManageStaffUI extends javax.swing.JPanel {
         dpCurrentDate = new org.jdesktop.swingx.JXDatePicker();
         jLabel1 = new javax.swing.JLabel();
 
-        jScrollPane7.setViewportView(listHistoryStaffMembers);
+        jScrollPane7.setViewportView(listHistoryForStaff);
 
         jLabel42.setText("H i s t o r y:");
 
@@ -65,6 +66,12 @@ public class ManageStaffUI extends javax.swing.JPanel {
         forceRefreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 forceRefreshButtonActionPerformed(evt);
+            }
+        });
+
+        dpCurrentDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dpCurrentDateActionPerformed(evt);
             }
         });
 
@@ -121,6 +128,13 @@ public class ManageStaffUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(listManageStaffMembers.getSelectedIndex() != -1)
         {
+            ArrayList<AllocationRecord> allocationHistory = listManageStaffMembers.getSelectedValue().getAllocationRecords();
+                DefaultListModel<String> model = new DefaultListModel<>();
+                for( AllocationRecord rec : allocationHistory)
+                {
+                    model.addElement(rec.getCar().getCARID() + "-" + rec.getCar().getBrand() + " " + rec.getCar().getModel() + " - " + rec.getStarDate().toString() + " - " + rec.getEndDate());
+                }
+                listHistoryForStaff.setModel(model);
             staffDetailsPanel1.loadStaffInfo(listManageStaffMembers.getSelectedValue());
         }
         
@@ -131,12 +145,33 @@ public class ManageStaffUI extends javax.swing.JPanel {
         RefreshList();
         
     }//GEN-LAST:event_forceRefreshButtonActionPerformed
+
+    private void dpCurrentDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpCurrentDateActionPerformed
+        RefreshList();
+    }//GEN-LAST:event_dpCurrentDateActionPerformed
     private void RefreshList()
     {
         ArrayList<Staff> staffList = Datastore.GetStaff();
         DefaultListModel<Staff> model = new DefaultListModel<>();
         for( Staff staff : staffList)
         {
+            if(dpCurrentDate.getDate() == null)
+                dpCurrentDate.setDate(new Date());
+            
+            ArrayList<AllocationRecord> carAllocationRecords = staff.getAllocationRecords();
+            staff.setHasCarAllocated(false);
+            if(carAllocationRecords != null)
+                for(AllocationRecord rec : carAllocationRecords)
+                {
+                    if(rec.getLongTermAllocation())
+                    {
+                        if(rec.getStarDate().before(dpCurrentDate.getDate()) && rec.getEndDate().after(dpCurrentDate.getDate()))
+                        {
+                                staff.setHasCarAllocated(true);
+                        }
+                    }
+                }
+            listManageStaffMembers.setCellRenderer( new CustomCellRenderer());
             model.addElement(staff);
         }
         listManageStaffMembers.setModel(model);
@@ -151,7 +186,7 @@ public class ManageStaffUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JList<String> listHistoryStaffMembers;
+    private javax.swing.JList<String> listHistoryForStaff;
     private javax.swing.JList<Staff> listManageStaffMembers;
     private GUIs.StaffDetailsPanel staffDetailsPanel1;
     // End of variables declaration//GEN-END:variables

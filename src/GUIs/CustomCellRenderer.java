@@ -42,6 +42,11 @@ public class CustomCellRenderer  extends DefaultListCellRenderer {
         if(value instanceof Staff)
         {
             // if staff allocated a car
+            Staff nextStaff = (Staff) value;
+            c.setForeground(new Color(0,100,0)); // Dark green
+            if(nextStaff.hasCarAllocated())
+                c.setForeground(Color.ORANGE);
+            
         }
         
         return c;

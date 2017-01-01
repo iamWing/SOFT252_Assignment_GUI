@@ -205,7 +205,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                 DefaultListModel<String> model = new DefaultListModel<>();
                 for( AllocationRecord rec : allocationHistory)
                 {
-                    model.addElement(rec.getStaff().getSTAFFID() + "-" + rec.getStaff().getForeName() + " " +rec.getStaff().getLastName() + " - " + rec.getStarDate().toString());
+                    model.addElement(rec.getStaff().getSTAFFID() + "-" + rec.getStaff().getForeName() + " " +rec.getStaff().getLastName() + " - " + rec.getStarDate().toString() + " - " + rec.getEndDate());
                 }
                 listHistoryForCar.setModel(model);
             }catch(Exception ex)
@@ -278,7 +278,6 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                 if(carAllocationRecords != null)
                     for(AllocationRecord rec : carAllocationRecords)
                     {
-                        System.out.println(car.getCARID() + " " + rec.getLongTermAllocation());
                         if(rec.getLongTermAllocation())
                         {
                             if(rec.getStarDate().before(dpCurrentDate.getDate()) && rec.getEndDate().after(dpCurrentDate.getDate()))
