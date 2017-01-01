@@ -149,28 +149,24 @@ public class Datastore implements Serializable {
                 {
                     Car car = new Car("CAR0" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark01, "Sample Car");
                     AddInsuranceToCar(car,"Company0"+x,"Number0"+x,new Date(), new Date());
-                    car.setDamaged(true);
                     Datastore.store.AddCar(car);
                 }
                 for (x=0; x<10; x++)
                 {
                     Car car = new Car("CAR1" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark02, "Sample Car");
                     AddInsuranceToCar(car,"Company1"+x,"Number1"+x,new Date(), new Date());
-                    car.setAllocated(true);
                     Datastore.store.AddCar(car);
                 }
                 for (x=0; x<10; x++)
                 {
                     Car car = new Car("CAR2" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark03, "Sample Car");
                     AddInsuranceToCar(car,"Company2"+x,"Number2"+x,new Date(), new Date());
-                    car.setAvailable(true);
                     Datastore.store.AddCar(car);
                 }
                 for (x=0; x<10; x++)
                 {
                     Car car = new Car("CAR3" + x, "Sample Car", "Model " + x, 4, CarParks.CarPark03, "Sample Car");
                     AddInsuranceToCar(car,"Company3"+x,"Number3"+x,new Date(), new Date());
-                    car.setInService(true);
                     Datastore.store.AddCar(car);
                 }
 

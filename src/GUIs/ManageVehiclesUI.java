@@ -6,6 +6,7 @@
 package GUIs;
 
 import data.Datastore;
+import other.Utils;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
@@ -254,50 +255,11 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         DefaultListModel<Car> model = new DefaultListModel<>();
         for( Car car : carList)
         {
-            try
-            {
-                if(dpCurrentDate.getDate() == null)
-                {
-                    dpCurrentDate.setDate(new Date());
-                }
-                
-                ArrayList<Service> carServiceList = car.getServiceRecords();
-                car.setInService(false);
-                if(carServiceList != null)
-                    for(Service serv : carServiceList)
-                    {
-                        if(serv.getInDate().before(dpCurrentDate.getDate()) && serv.getOutDate().after(dpCurrentDate.getDate()))
-                        {
-                            car.setInService(true);
-                        }
-                    }
-
-
-                ArrayList<AllocationRecord> carAllocationRecords = car.getAllocationRecords();
-                car.setAllocated(false);
-                if(carAllocationRecords != null)
-                    for(AllocationRecord rec : carAllocationRecords)
-                    {
-                        if(rec.getLongTermAllocation())
-                        {
-                            if(rec.getStarDate().before(dpCurrentDate.getDate()) && rec.getEndDate().after(dpCurrentDate.getDate()))
-                            {
-                                car.setAllocated(true);
-                            }
-                        }
-                    }
-            }catch(Exception ex)
-            {
-                System.err.print(ex.getMessage());
-            }
-            
-            if(car.isAllocated() || car.isDamaged() || car.isInService())
-                car.setAvailable(false);
-            
             model.addElement(car);
-            
         }
-        listManageVehicles.setCellRenderer( new CustomCellRenderer());
+        if(dpCurrentDate.getDate() == null)
+            dpCurrentDate.setDate(new Date());
+        listManageVehicles.setCellRenderer( new CustomCellRenderer(dpCurrentDate.getDate()));
         listManageVehicles.setModel(model);
     }
     private void RefreshServiceListModel()

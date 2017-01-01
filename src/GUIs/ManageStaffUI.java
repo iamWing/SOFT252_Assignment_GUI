@@ -132,7 +132,10 @@ public class ManageStaffUI extends javax.swing.JPanel {
                 DefaultListModel<String> model = new DefaultListModel<>();
                 for( AllocationRecord rec : allocationHistory)
                 {
-                    model.addElement(rec.getCar().getCARID() + "-" + rec.getCar().getBrand() + " " + rec.getCar().getModel() + " - " + rec.getStarDate().toString() + " - " + rec.getEndDate());
+                    String end = "ONE DAY";
+                    if (rec.getLongTermAllocation() && rec.getEndDate() != null)
+                        end = rec.getEndDate().toString();
+                    model.addElement(rec.getCar().getCARID() + "-" + rec.getCar().getBrand() + " " + rec.getCar().getModel() + " - " + rec.getStarDate().toString() + " - " + end);
                 }
                 listHistoryForStaff.setModel(model);
             staffDetailsPanel1.loadStaffInfo(listManageStaffMembers.getSelectedValue());
@@ -155,25 +158,11 @@ public class ManageStaffUI extends javax.swing.JPanel {
         DefaultListModel<Staff> model = new DefaultListModel<>();
         for( Staff staff : staffList)
         {
-            if(dpCurrentDate.getDate() == null)
-                dpCurrentDate.setDate(new Date());
-            
-            ArrayList<AllocationRecord> carAllocationRecords = staff.getAllocationRecords();
-            staff.setHasCarAllocated(false);
-            if(carAllocationRecords != null)
-                for(AllocationRecord rec : carAllocationRecords)
-                {
-                    if(rec.getLongTermAllocation())
-                    {
-                        if(rec.getStarDate().before(dpCurrentDate.getDate()) && rec.getEndDate().after(dpCurrentDate.getDate()))
-                        {
-                                staff.setHasCarAllocated(true);
-                        }
-                    }
-                }
-            listManageStaffMembers.setCellRenderer( new CustomCellRenderer());
             model.addElement(staff);
         }
+        if(dpCurrentDate.getDate() == null)
+            dpCurrentDate.setDate(new Date());
+        listManageStaffMembers.setCellRenderer( new CustomCellRenderer(dpCurrentDate.getDate()));
         listManageStaffMembers.setModel(model);
     }
 

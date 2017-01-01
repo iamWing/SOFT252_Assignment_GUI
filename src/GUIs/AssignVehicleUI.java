@@ -223,7 +223,7 @@ public class AssignVehicleUI extends javax.swing.JPanel {
                     break;
                 }
             }*/ 
-            if(car.isAvailable() && car.getLocation() == lstLocation.getSelectedItem())
+            if(car.isAvailable(new Date()) && car.getLocation() == lstLocation.getSelectedItem())
                 model.addElement(car);
         }
         lstVehicles.setModel(model);
