@@ -32,7 +32,7 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         
         // --- init locations --- //
         for (CarParks loc : CarParks.values()) {
-            lstLocation.addItem(loc.toString());
+            lstLocation.addItem(loc);
         }
     }
     
@@ -213,7 +213,16 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         DefaultListModel<Car> model = new DefaultListModel<>();
         for( Car car : carList)
         {
-            model.addElement(car);
+          /*  boolean locationsAreEqual = false;
+            for (CarParks loc : CarParks.values()) {
+                if(loc == car.getLocation())
+                {
+                    locationsAreEqual = true;
+                    break;
+                }
+            }*/ 
+            if(car.isAvailable() && car.getLocation() == lstLocation.getSelectedItem())
+                model.addElement(car);
         }
         lstVehicles.setModel(model);
         
@@ -246,7 +255,7 @@ public class AssignVehicleUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JComboBox<String> lstLocation;
+    private javax.swing.JComboBox<CarParks> lstLocation;
     private javax.swing.JList<Staff> lstStaffMembers;
     private javax.swing.JList<Car> lstVehicles;
     private GUIs.StaffDetailsPanel staffDetailsPanel1;

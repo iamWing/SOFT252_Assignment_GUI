@@ -61,7 +61,6 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
     public void warn()
     {
-        System.out.println("Warned");
         if(selectedCar != null)
             enableSaveButton();
     }

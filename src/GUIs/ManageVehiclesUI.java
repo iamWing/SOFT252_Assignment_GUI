@@ -177,7 +177,6 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     private void listManageVehiclesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listManageVehiclesValueChanged
         if(listManageVehicles.getSelectedIndex() != -1)
         {
-            System.out.println(" " + listManageVehicles.getSelectedIndex());
             vehicleDetailsPanel1.loadCarInfo(listManageVehicles.getSelectedValue());
             try
             {
@@ -242,11 +241,14 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                         car.setInService(true);
                     }
                 }
+            
+            
             ArrayList<AllocationRecord> carAllocationRecords = car.getAllocationRecords();
             car.setAllocated(false);
             if(carAllocationRecords != null)
                 for(AllocationRecord rec : carAllocationRecords)
                 {
+                    System.out.println(car.getCARID() + " " + rec.getLongTermAllocation());
                     if(rec.getLongTermAllocation())
                     {
                         if(rec.getStarDate().before(new Date()) && rec.getEndDate().after(new Date()))
@@ -259,6 +261,9 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
             {
                 System.err.print(ex.getMessage());
             }
+            
+            if(car.isAllocated() || car.isDamaged() || car.isInService())
+                car.setAvailable(false);
             
             model.addElement(car);
             
