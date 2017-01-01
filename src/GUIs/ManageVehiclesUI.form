@@ -35,17 +35,17 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane5" alignment="1" pref="459" max="32767" attributes="0"/>
-                          <Component id="jScrollPane4" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="1" pref="459" max="32767" attributes="0"/>
                           <Component id="btnForceRefresh" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="dpCurrentDate" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                              <EmptySpace min="107" pref="275" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="vehicleDetailsPanel1" pref="418" max="32767" attributes="0"/>
                           <Component id="manageServiceHistoryPanel1" max="32767" attributes="0"/>

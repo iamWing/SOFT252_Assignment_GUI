@@ -151,10 +151,8 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteServiceActionPerformed
 
     private void btnSaveServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveServiceActionPerformed
-        removeServiceFromCar(listService.getSelectedValue());
         addServiceToCar(createServiceFromBoxes());
-        
-        
+        removeServiceFromCar(listService.getSelectedValue());       
     }//GEN-LAST:event_btnSaveServiceActionPerformed
 
     private void listServiceValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listServiceValueChanged
