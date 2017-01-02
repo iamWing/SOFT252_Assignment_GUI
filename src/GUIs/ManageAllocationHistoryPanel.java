@@ -92,7 +92,7 @@ public class ManageAllocationHistoryPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_listAllocationHistoryValueChanged
 
     private void btnRemoveAllocationRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllocationRecordActionPerformed
-        listAllocationHistory.getSelectedValue().DeleteAllocationRecord(listAllocationHistory.getSelectedValue());
+        listAllocationHistory.getSelectedValue().Delete();
         RefreshAllocationRecordList(currentCar);
     }//GEN-LAST:event_btnRemoveAllocationRecordActionPerformed
     
