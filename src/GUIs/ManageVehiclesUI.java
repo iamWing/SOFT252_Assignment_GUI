@@ -50,7 +50,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         jLabel27 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         dpCurrentDate = new org.jdesktop.swingx.JXDatePicker();
-        manageHistoryPanel = new GUIs.ManageHistoryPanel();
+        manageHistoryPanel = new GUIs.ManageDamageRecordsHistoryPanel();
         manageServiceHistoryPanel1 = new GUIs.ManageServiceHistoryPanel();
 
         setFocusTraversalPolicyProvider(true);
@@ -94,7 +94,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                         .addComponent(manageHistoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
+                        .addGap(177, 177, 177)
                         .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel27)
@@ -130,7 +130,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                         .addComponent(btnForceRefresh))
                     .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
                     .addComponent(jLabel26))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,7 +204,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JList<String> listHistoryForCar;
     private javax.swing.JList<Car> listManageVehicles;
-    private GUIs.ManageHistoryPanel manageHistoryPanel;
+    private GUIs.ManageDamageRecordsHistoryPanel manageHistoryPanel;
     private GUIs.ManageServiceHistoryPanel manageServiceHistoryPanel1;
     private GUIs.VehicleDetailsPanel vehicleDetailsPanel1;
     // End of variables declaration//GEN-END:variables

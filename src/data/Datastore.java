@@ -97,6 +97,18 @@ public class Datastore implements Serializable {
             throw new DatastoreNotLoadedException();
         return Datastore.store.staff.add(staff);
     }
+    public static Staff GetStaff(String staffID)
+    {
+        for(Staff currStaff : Datastore.store.staff)
+        {
+            if(currStaff.getSTAFFID().equalsIgnoreCase(staffID))
+            {
+                return currStaff;
+            }
+                        
+        }
+        return null;
+    }
     public static ArrayList<Staff> GetStaff()
     {
         /* Eat NullPointerException so NetBeans Designer can load. */

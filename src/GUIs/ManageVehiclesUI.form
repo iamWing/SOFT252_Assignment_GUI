@@ -27,7 +27,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
                       <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
@@ -74,9 +74,9 @@
                   <Component id="vehicleDetailsPanel1" pref="391" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -157,7 +157,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dpCurrentDateActionPerformed"/>
       </Events>
     </Component>
-    <Component class="GUIs.ManageHistoryPanel" name="manageHistoryPanel">
+    <Component class="GUIs.ManageDamageRecordsHistoryPanel" name="manageHistoryPanel">
     </Component>
     <Component class="GUIs.ManageServiceHistoryPanel" name="manageServiceHistoryPanel1">
     </Component>
