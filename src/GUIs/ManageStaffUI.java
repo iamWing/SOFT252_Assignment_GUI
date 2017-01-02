@@ -135,7 +135,7 @@ public class ManageStaffUI extends javax.swing.JPanel {
                     String end = "ONE DAY";
                     if (rec.getLongTermAllocation() && rec.getEndDate() != null)
                         end = rec.getEndDate().toString();
-                    model.addElement(rec.getCar().getCARID() + "-" + rec.getCar().getBrand() + " " + rec.getCar().getModel() + " - " + rec.getStarDate().toString() + " - " + end);
+                    model.addElement(rec.getCar().getCARID() + "-" + rec.getCar().getBrand() + " " + rec.getCar().getModel() + " - " + rec.getStartDate().toString() + " - " + end);
                 }
                 listHistoryForStaff.setModel(model);
             staffDetailsPanel1.loadStaffInfo(listManageStaffMembers.getSelectedValue());
