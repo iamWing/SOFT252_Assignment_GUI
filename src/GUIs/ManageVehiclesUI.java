@@ -126,20 +126,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         if(listManageVehicles.getSelectedIndex() != -1)
         {
             vehicleDetailsPanel1.loadCarInfo(listManageVehicles.getSelectedValue());
-            try
-            {
-                ArrayList<AllocationRecord> allocationHistory = listManageVehicles.getSelectedValue().getAllocationRecords();
-                DefaultListModel<String> model = new DefaultListModel<>();
-                for( AllocationRecord rec : allocationHistory)
-                {
-                    model.addElement(rec.getStaff().getSTAFFID() + "-" + rec.getStaff().getForeName() + " " +rec.getStaff().getLastName() + " - " + rec.getStarDate().toString() + " - " + rec.getEndDate());
-                }
-                manageAllocationHistoryPanel1.RefreshAllocationRecordList(listManageVehicles.getSelectedValue());
-            }catch(Exception ex)
-            {
-                System.err.print(ex.getMessage());
-            }
-            
+            manageAllocationHistoryPanel1.RefreshAllocationRecordList(listManageVehicles.getSelectedValue());
             manageServiceHistoryPanel1.RefreshServiceListModel(listManageVehicles.getSelectedValue());
             manageHistoryPanel.RefreshList(listManageVehicles.getSelectedValue());
         }
