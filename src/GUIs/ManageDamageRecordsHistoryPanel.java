@@ -1,5 +1,9 @@
 package GUIs;
 
+import commands.Command;
+import commands.CommandTracker;
+import commands.interfaces.ICommandBehavior;
+import commands.vehicleManagement.AddDamageRecord;
 import data.Datastore;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +30,7 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
 
     
     Car currentCar;
+    CommandTracker cmdTracker = new CommandTracker();
     DocumentListener documentListener;
     ArrayList<String> staffIDs;
     /**
@@ -248,7 +253,15 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
             {
                 if(dpDamageDate.getDate() != null)
                 {
-                    new DamageRecord(currentCar,dpDamageDate.getDate(),tempStaff,txtDescription.getText());
+                    try
+                    {
+                        ICommandBehavior cmdBehavior = new AddDamageRecord(currentCar, dpDamageDate.getDate(),tempStaff,txtDescription.getText());
+                        Command cmd = new Command (cmdBehavior);
+                        cmdTracker.executeCommand(cmd);
+                    }catch(Exception ex)
+                    {
+                        System.err.print(ex.getMessage());
+                    }
                 }
                 else
                 {
@@ -298,7 +311,9 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
     {
         if(lstDamageRecords.getSelectedIndex() != -1 )
         {
-            currentCar.removeDamageRecord(rec);           
+            currentCar.removeDamageRecord(rec); 
+            RefreshList(currentCar);
+            System.out.println("Remove");
         }
     }
     private void infoBox(String infoMessage, String titleBar) {

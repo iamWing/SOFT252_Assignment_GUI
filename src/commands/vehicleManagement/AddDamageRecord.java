@@ -36,7 +36,6 @@ public class AddDamageRecord implements ICommandBehavior {
     public boolean executeCommand()
     {
         record = new DamageRecord(car,damageDate,damagedBy, description);
-        car.addDamageRecord(record);
         return true;
     }
     @Override

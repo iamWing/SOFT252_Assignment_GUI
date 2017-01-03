@@ -5,6 +5,10 @@
  */
 package GUIs;
 
+import commands.Command;
+import commands.CommandTracker;
+import commands.interfaces.ICommandBehavior;
+import commands.vehicleManagement.AddService;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
@@ -18,6 +22,8 @@ import models.Service;
 public class ManageServiceHistoryPanel extends javax.swing.JPanel {
 
     Car currentCar;
+    
+    CommandTracker cmdTracker = new CommandTracker();
     
     /**
      * Creates new form ManageServiceHistoryPanel
@@ -149,7 +155,7 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddServiceActionPerformed
-        addServiceToCar(createServiceFromBoxes());
+        addServiceToCar();
     }//GEN-LAST:event_btnAddServiceActionPerformed
 
     private void btnDeleteServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteServiceActionPerformed
@@ -159,7 +165,7 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteServiceActionPerformed
 
     private void btnSaveServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveServiceActionPerformed
-        addServiceToCar(createServiceFromBoxes());
+        addServiceToCar();
         removeServiceFromCar(listService.getSelectedValue());       
     }//GEN-LAST:event_btnSaveServiceActionPerformed
 
@@ -207,11 +213,19 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
     {
         return new Service(dpInDate.getDate(),dpOutDate.getDate(),txtDescription.getText());
     }
-    private void addServiceToCar(Service service)
+    private void addServiceToCar()
     {
-        currentCar.addServiceRecord(service);
-        clearServiceInfo();
-        RefreshServiceListModel(currentCar);
+        ICommandBehavior cmdBehavior = new AddService(currentCar,dpInDate.getDate(),dpOutDate.getDate(),txtDescription.getText());
+        Command cmd = new Command(cmdBehavior);
+        try
+        {
+            cmdTracker.executeCommand(cmd);
+            clearServiceInfo();
+            RefreshServiceListModel(currentCar);
+        }catch (Exception ex)
+        {
+            System.err.print(ex.getMessage());
+        }
     }
     public void removeServiceFromCar(Service service)
     {
