@@ -20,29 +20,31 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="manageHistoryPanel" max="32767" attributes="0"/>
+                  <Component id="manageHistoryPanel" pref="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane4" alignment="1" pref="461" max="32767" attributes="0"/>
-                          <Component id="btnForceRefresh" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="dpCurrentDate" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jScrollPane4" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="manageAllocationHistoryPanel1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel4" min="-2" pref="111" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="dpCurrentDate" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="btnForceRefresh" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="vehicleDetailsPanel1" pref="418" max="32767" attributes="0"/>
-                          <Component id="manageServiceHistoryPanel1" max="32767" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="vehicleDetailsPanel1" min="-2" pref="336" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="manageServiceHistoryPanel1" max="32767" attributes="0"/>
+                  <Component id="manageAllocationHistoryPanel1" pref="0" max="32767" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,16 +63,14 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="btnForceRefresh" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="vehicleDetailsPanel1" pref="391" max="32767" attributes="0"/>
+                  <Component id="vehicleDetailsPanel1" max="32767" attributes="0"/>
+                  <Component id="manageAllocationHistoryPanel1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="manageServiceHistoryPanel1" pref="345" max="32767" attributes="0"/>
-                  <Component id="manageAllocationHistoryPanel1" max="32767" attributes="0"/>
+                  <Component id="manageHistoryPanel" max="32767" attributes="0"/>
+                  <Component id="manageServiceHistoryPanel1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="manageHistoryPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
