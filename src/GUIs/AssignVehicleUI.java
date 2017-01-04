@@ -5,6 +5,10 @@
  */
 package GUIs;
 
+import commands.Command;
+import commands.CommandTracker;
+import commands.interfaces.ICommandBehavior;
+import commands.vehicleManagement.AddAllocationRecord;
 import data.Datastore;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +25,7 @@ import models.Staff;
  */
 public class AssignVehicleUI extends javax.swing.JPanel {
 
-    
+    CommandTracker cmdTracker = new CommandTracker();
     private Car selectedCar;
     private Staff selectedStaff;
     /**
@@ -160,7 +164,16 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         AllocationRecord tempRec;
         if(dpStartDate.getDate() != null && dpEndDate.getDate() != null)
         {
-            tempRec = new AllocationRecord(selectedCar,selectedStaff,dpStartDate.getDate(),dpEndDate.getDate());
+            ICommandBehavior cmdBehavior = new AddAllocationRecord(selectedCar, selectedStaff, dpStartDate.getDate(),dpEndDate.getDate());
+            Command cmd = new Command(cmdBehavior);
+            try
+            {
+                cmdTracker.executeCommand(cmd);
+            }catch(Exception ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+            //tempRec = new AllocationRecord(selectedCar,selectedStaff,dpStartDate.getDate(),dpEndDate.getDate());
         }
         else if(dpStartDate.getDate() == null)
         {
@@ -168,7 +181,16 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         }
         else
         {
-            tempRec = new AllocationRecord(selectedCar,selectedStaff,new Date());
+            ICommandBehavior cmdBehavior = new AddAllocationRecord(selectedCar, selectedStaff, dpStartDate.getDate());
+            Command cmd = new Command(cmdBehavior);
+            try
+            {
+                cmdTracker.executeCommand(cmd);
+            }catch(Exception ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+            //tempRec = new AllocationRecord(selectedCar,selectedStaff,new Date());
         }
     }//GEN-LAST:event_btnAssignVehicleActionPerformed
 
