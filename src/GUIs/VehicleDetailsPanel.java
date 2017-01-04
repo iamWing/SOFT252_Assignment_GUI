@@ -11,6 +11,11 @@ import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.AddInsurance;
 import commands.vehicleManagement.AddVehicle;
 import commands.vehicleManagement.RemoveVehicle;
+import data.Datastore;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -26,6 +31,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     /**
      * Creates new form VehicleDetailsPanel
      */
+    
+    JList vehicleList;
     Car selectedCar = null;
     CommandTracker cmdTracker = new CommandTracker();
     DocumentListener documentListener;
@@ -64,7 +71,9 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         if(selectedCar != null)
             enableSaveButton();
     }
-    public void loadCarInfo(Car selectedVehicle) {
+    public void loadCarInfo(Car selectedVehicle, JList list) {
+        vehicleList = list;
+        
         txtCarBrand.setText(selectedVehicle.getBrand());
         txtCarModel.setText(selectedVehicle.getModel());
         txtCarID.setText(selectedVehicle.getCARID());
@@ -313,10 +322,12 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         try {
             cmdTracker.executeCommand(cmd);
             clearCarInfo();
+            RefreshCarList();
             infoBox("Car added successfully.", "Operation successful");
         } catch (Exception ex) {
             System.err.print(ex.getMessage());
         }
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarModelActionPerformed
@@ -347,6 +358,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             selectedCar = null;
             disableSaveButton();
             disableDeleteButton();
+            RefreshCarList();
             infoBox("Car information updated.", "Operation successful");
         } catch (Exception ex) {
             System.err.print(ex.getMessage());
@@ -367,6 +379,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             selectedCar = null;
             disableDeleteButton();
             disableSaveButton();
+            RefreshCarList();
             infoBox("Car deleted from list.", "Operation successful");
         }catch(Exception ex)
         {
@@ -438,6 +451,16 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
     private void infoBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
+    private void RefreshCarList()
+    {
+        ArrayList<Car> carList = Datastore.GetCars();
+        DefaultListModel<Car> model = new DefaultListModel<>();
+        for( Car car : carList)
+        {
+            model.addElement(car);
+        }
+        vehicleList.setModel(model);
     }
 
 

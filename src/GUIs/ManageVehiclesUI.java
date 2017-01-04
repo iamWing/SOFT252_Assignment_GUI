@@ -125,7 +125,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     private void listManageVehiclesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listManageVehiclesValueChanged
         if(listManageVehicles.getSelectedIndex() != -1)
         {
-            vehicleDetailsPanel1.loadCarInfo(listManageVehicles.getSelectedValue());
+            vehicleDetailsPanel1.loadCarInfo(listManageVehicles.getSelectedValue(),listManageVehicles);
             manageAllocationHistoryPanel1.RefreshAllocationRecordList(listManageVehicles.getSelectedValue());
             manageServiceHistoryPanel1.RefreshServiceListModel(listManageVehicles.getSelectedValue());
             manageHistoryPanel.RefreshList(listManageVehicles.getSelectedValue());

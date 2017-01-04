@@ -199,7 +199,7 @@ public class AssignVehicleUI extends javax.swing.JPanel {
     private void lstVehiclesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstVehiclesValueChanged
         if(lstVehicles.getSelectedIndex() != -1)
         {
-            vehicleDetailsPanel1.loadCarInfo(lstVehicles.getSelectedValue());
+            vehicleDetailsPanel1.loadCarInfo(lstVehicles.getSelectedValue(),lstVehicles);
             selectedCar = lstVehicles.getSelectedValue();
             if(lstStaffMembers.getSelectedIndex() != -1)
             {
@@ -237,15 +237,9 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         DefaultListModel<Car> model = new DefaultListModel<>();
         for( Car car : carList)
         {
-          /*  boolean locationsAreEqual = false;
-            for (CarParks loc : CarParks.values()) {
-                if(loc == car.getLocation())
-                {
-                    locationsAreEqual = true;
-                    break;
-                }
-            }*/ 
-            if(car.isAvailable(new Date()) && car.getLocation() == lstLocation.getSelectedItem())
+            if(dpStartDate.getDate() == null)
+                dpStartDate.setDate(new Date());
+            if(car.isAvailable(dpStartDate.getDate()) && car.getLocation() == lstLocation.getSelectedItem())
                 model.addElement(car);
         }
         lstVehicles.setModel(model);
