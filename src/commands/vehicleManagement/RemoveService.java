@@ -17,14 +17,16 @@ public class RemoveService implements ICommandBehavior{
     private Car car;
     private Service service;
     
-    public RemoveService(Service _service)
+    public RemoveService(Car _car,Service _service)
     {
+        car = _car;
         service = _service;
     }
     
     @Override
     public boolean executeCommand()
     {
+        
         car.removeServiceRecord(service);
         return true;
     }

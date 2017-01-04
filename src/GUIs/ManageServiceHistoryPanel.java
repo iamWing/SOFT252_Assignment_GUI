@@ -9,6 +9,7 @@ import commands.Command;
 import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.AddService;
+import commands.vehicleManagement.RemoveService;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
@@ -156,17 +157,23 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
 
     private void btnAddServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddServiceActionPerformed
         addServiceToCar();
+        clearServiceInfo();
+        RefreshServiceListModel(currentCar);
     }//GEN-LAST:event_btnAddServiceActionPerformed
 
     private void btnDeleteServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteServiceActionPerformed
        
         removeServiceFromCar(listService.getSelectedValue());
+        clearServiceInfo();
+        RefreshServiceListModel(currentCar);
         
     }//GEN-LAST:event_btnDeleteServiceActionPerformed
 
     private void btnSaveServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveServiceActionPerformed
         addServiceToCar();
-        removeServiceFromCar(listService.getSelectedValue());       
+        removeServiceFromCar(listService.getSelectedValue());      
+        clearServiceInfo();
+        RefreshServiceListModel(currentCar);
     }//GEN-LAST:event_btnSaveServiceActionPerformed
 
     private void listServiceValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listServiceValueChanged
@@ -220,8 +227,6 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
         try
         {
             cmdTracker.executeCommand(cmd);
-            clearServiceInfo();
-            RefreshServiceListModel(currentCar);
         }catch (Exception ex)
         {
             System.err.print(ex.getMessage());
@@ -231,9 +236,16 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
     {
         if(listService.getSelectedIndex() != -1)
         {
-            currentCar.removeServiceRecord(service);
-            clearServiceInfo();
-            RefreshServiceListModel(currentCar);
+            ICommandBehavior cmdBehavior = new RemoveService (currentCar,service);
+            Command cmd = new Command(cmdBehavior);
+            try
+            {
+                cmdTracker.executeCommand(cmd);               
+            }catch(Exception ex)
+            {
+                
+                System.err.print(ex.getMessage());
+            }
         }
     }
     
