@@ -5,6 +5,10 @@
  */
 package GUIs;
 
+import commands.Command;
+import commands.CommandTracker;
+import commands.interfaces.ICommandBehavior;
+import commands.vehicleManagement.RemoveAllocationRecord;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import models.AllocationRecord;
@@ -16,6 +20,7 @@ import models.Car;
  */
 public class ManageAllocationHistoryPanel extends javax.swing.JPanel {
 
+    CommandTracker cmdTracker = new CommandTracker();
     Car currentCar;
     /**
      * Creates new form ManageAllocationHistoryPanel
@@ -92,7 +97,16 @@ public class ManageAllocationHistoryPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_listAllocationHistoryValueChanged
 
     private void btnRemoveAllocationRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllocationRecordActionPerformed
-        listAllocationHistory.getSelectedValue().Delete();
+       // listAllocationHistory.getSelectedValue().Delete();
+        try
+        {
+            ICommandBehavior cmdBehavior = new RemoveAllocationRecord(listAllocationHistory.getSelectedValue());
+            Command cmd = new Command(cmdBehavior);
+            cmdTracker.executeCommand(cmd);
+        }catch(Exception ex)
+        {
+            System.err.println(ex.getMessage());
+        }
         RefreshAllocationRecordList(currentCar);
     }//GEN-LAST:event_btnRemoveAllocationRecordActionPerformed
     

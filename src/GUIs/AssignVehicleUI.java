@@ -172,8 +172,7 @@ public class AssignVehicleUI extends javax.swing.JPanel {
             }catch(Exception ex)
             {
                 System.out.println(ex.getMessage());
-            }
-            //tempRec = new AllocationRecord(selectedCar,selectedStaff,dpStartDate.getDate(),dpEndDate.getDate());
+            }           
         }
         else if(dpStartDate.getDate() == null)
         {
@@ -190,7 +189,6 @@ public class AssignVehicleUI extends javax.swing.JPanel {
             {
                 System.out.println(ex.getMessage());
             }
-            //tempRec = new AllocationRecord(selectedCar,selectedStaff,new Date());
         }
     }//GEN-LAST:event_btnAssignVehicleActionPerformed
 

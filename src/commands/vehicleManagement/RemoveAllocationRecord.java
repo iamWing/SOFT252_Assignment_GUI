@@ -22,18 +22,21 @@ public class RemoveAllocationRecord implements ICommandBehavior{
     public RemoveAllocationRecord(AllocationRecord _record)
     {
         record = _record;
+        
     }
     
     @Override
     public boolean executeCommand()
     {
-        car.removeAllocationRecord(record);
+        record.Delete();
         return true;
     }
     @Override
     public boolean undoCommand()
     {
         car.addAllocationRecord(record);
+        record.getStaff().addAllocationRecord(record);
+        
         return true;
     }
 }
