@@ -46,9 +46,10 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         btnForceRefresh = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         dpCurrentDate = new org.jdesktop.swingx.JXDatePicker();
-        manageHistoryPanel = new GUIs.ManageDamageRecordsHistoryPanel();
-        manageServiceHistoryPanel1 = new GUIs.ManageServiceHistoryPanel();
-        manageAllocationHistoryPanel1 = new GUIs.ManageAllocationHistoryPanel();
+        tabs = new javax.swing.JTabbedPane();
+        manageAllocationHistoryPanel = new GUIs.ManageAllocationHistoryPanel();
+        manageServiceHistoryPanel = new GUIs.ManageServiceHistoryPanel();
+        manageDamageHistoryPanel = new GUIs.ManageDamageRecordsHistoryPanel();
 
         setFocusTraversalPolicyProvider(true);
 
@@ -74,6 +75,10 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
             }
         });
 
+        tabs.addTab("Allocation History", manageAllocationHistoryPanel);
+        tabs.addTab("Service History", manageServiceHistoryPanel);
+        tabs.addTab("Damage History", manageDamageHistoryPanel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,23 +86,18 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(manageHistoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane4)
-                                .addGap(7, 7, 7))
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnForceRefresh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dpCurrentDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnForceRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(manageServiceHistoryPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manageAllocationHistoryPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                                .addComponent(dpCurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,12 +112,10 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnForceRefresh))
-                    .addComponent(manageAllocationHistoryPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(manageHistoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manageServiceHistoryPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -125,9 +123,9 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         if(listManageVehicles.getSelectedIndex() != -1)
         {
             vehicleDetailsPanel1.loadCarInfo(listManageVehicles.getSelectedValue(),listManageVehicles);
-            manageAllocationHistoryPanel1.RefreshAllocationRecordList(listManageVehicles.getSelectedValue());
-            manageServiceHistoryPanel1.RefreshServiceListModel(listManageVehicles.getSelectedValue());
-            manageHistoryPanel.RefreshList(listManageVehicles.getSelectedValue());
+            manageAllocationHistoryPanel.RefreshAllocationRecordList(listManageVehicles.getSelectedValue());
+            manageServiceHistoryPanel.RefreshServiceListModel(listManageVehicles.getSelectedValue());
+            manageDamageHistoryPanel.RefreshList(listManageVehicles.getSelectedValue());
         }
     }//GEN-LAST:event_listManageVehiclesValueChanged
 
@@ -165,9 +163,10 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JList<Car> listManageVehicles;
-    private GUIs.ManageAllocationHistoryPanel manageAllocationHistoryPanel1;
-    private GUIs.ManageDamageRecordsHistoryPanel manageHistoryPanel;
-    private GUIs.ManageServiceHistoryPanel manageServiceHistoryPanel1;
+    private GUIs.ManageAllocationHistoryPanel manageAllocationHistoryPanel;
+    private GUIs.ManageDamageRecordsHistoryPanel manageDamageHistoryPanel;
+    private GUIs.ManageServiceHistoryPanel manageServiceHistoryPanel;
+    private javax.swing.JTabbedPane tabs;
     private GUIs.VehicleDetailsPanel vehicleDetailsPanel1;
     // End of variables declaration//GEN-END:variables
 }

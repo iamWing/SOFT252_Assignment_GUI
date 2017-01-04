@@ -22,29 +22,22 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="manageHistoryPanel" pref="0" max="32767" attributes="0"/>
+                  <Component id="tabs" pref="620" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jScrollPane4" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="btnForceRefresh" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" pref="111" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="dpCurrentDate" max="32767" attributes="0"/>
+                              <Component id="dpCurrentDate" min="-2" pref="208" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="btnForceRefresh" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="vehicleDetailsPanel1" min="-2" pref="336" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="vehicleDetailsPanel1" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="manageServiceHistoryPanel1" max="32767" attributes="0"/>
-                  <Component id="manageAllocationHistoryPanel1" pref="0" max="32767" attributes="0"/>
-              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -63,14 +56,11 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="btnForceRefresh" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="manageAllocationHistoryPanel1" max="32767" attributes="0"/>
                   <Component id="vehicleDetailsPanel1" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="manageHistoryPanel" max="32767" attributes="0"/>
-                  <Component id="manageServiceHistoryPanel1" max="32767" attributes="0"/>
-              </Group>
+              <Component id="tabs" min="-2" pref="309" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -113,11 +103,38 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dpCurrentDateActionPerformed"/>
       </Events>
     </Component>
-    <Component class="GUIs.ManageDamageRecordsHistoryPanel" name="manageHistoryPanel">
-    </Component>
-    <Component class="GUIs.ManageServiceHistoryPanel" name="manageServiceHistoryPanel1">
-    </Component>
-    <Component class="GUIs.ManageAllocationHistoryPanel" name="manageAllocationHistoryPanel1">
-    </Component>
+    <Container class="javax.swing.JTabbedPane" name="tabs">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="GUIs.ManageAllocationHistoryPanel" name="manageAllocationHistoryPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Allocation History">
+                <Property name="tabTitle" type="java.lang.String" value="Allocation History"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="GUIs.ManageServiceHistoryPanel" name="manageServiceHistoryPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Service History">
+                <Property name="tabTitle" type="java.lang.String" value="Service History"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="GUIs.ManageDamageRecordsHistoryPanel" name="manageDamageHistoryPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Damage History">
+                <Property name="tabTitle" type="java.lang.String" value="Damage History"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
