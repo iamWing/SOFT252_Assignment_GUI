@@ -18,8 +18,9 @@ public class RemoveDamageRecord implements ICommandBehavior {
     private DamageRecord record;
     
     
-    public RemoveDamageRecord (DamageRecord _record)
+    public RemoveDamageRecord (Car _car,DamageRecord _record)
     {
+        car = _car;
         record = _record;
     }
     @Override

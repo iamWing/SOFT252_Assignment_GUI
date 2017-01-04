@@ -4,6 +4,7 @@ import commands.Command;
 import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.AddDamageRecord;
+import commands.vehicleManagement.RemoveDamageRecord;
 import data.Datastore;
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,7 +84,6 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstDamageRecords = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
-        txtDescription = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtStaffName = new javax.swing.JTextField();
@@ -93,6 +93,8 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
         dpDamageDate = new org.jdesktop.swingx.JXDatePicker();
         btnSaveDamageRecord = new javax.swing.JButton();
         btnDeleteDamageRecord = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescription = new javax.swing.JTextArea();
 
         jLabel1.setText("Damage History");
 
@@ -134,6 +136,10 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
             }
         });
 
+        txtDescription.setColumns(20);
+        txtDescription.setRows(5);
+        jScrollPane2.setViewportView(txtDescription);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,7 +153,7 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -162,10 +168,10 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtStaffName, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddDamageRecord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSaveDamageRecord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeleteDamageRecord, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddDamageRecord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSaveDamageRecord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeleteDamageRecord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -178,7 +184,7 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -205,7 +211,7 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
     private void btnAddDamageRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDamageRecordActionPerformed
         createDamageRecordFromBoxes();
         RefreshList(currentCar);
-        System.out.println("Added");
+        clearDamageRecordInfo();
     }//GEN-LAST:event_btnAddDamageRecordActionPerformed
 
     private void lstDamageRecordsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstDamageRecordsValueChanged
@@ -224,12 +230,15 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
 
     private void btnDeleteDamageRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteDamageRecordActionPerformed
         removeDamageRecordFromCar(lstDamageRecords.getSelectedValue());
+        RefreshList(currentCar);
+        clearDamageRecordInfo();
     }//GEN-LAST:event_btnDeleteDamageRecordActionPerformed
 
     private void btnSaveDamageRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDamageRecordActionPerformed
         createDamageRecordFromBoxes();
         removeDamageRecordFromCar(lstDamageRecords.getSelectedValue());
-        
+        RefreshList(currentCar);
+        clearDamageRecordInfo();
     }//GEN-LAST:event_btnSaveDamageRecordActionPerformed
     
     private void createDamageRecordFromBoxes()
@@ -299,9 +308,15 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
     {
         if(lstDamageRecords.getSelectedIndex() != -1 )
         {
-            currentCar.removeDamageRecord(rec); 
-            RefreshList(currentCar);
-            System.out.println("Remove");
+            try
+            {
+                ICommandBehavior cmdBehavior = new RemoveDamageRecord(currentCar,lstDamageRecords.getSelectedValue());
+                Command cmd = new Command(cmdBehavior);
+                cmdTracker.executeCommand(cmd);
+            }catch(Exception ex)
+            {
+                System.err.print(ex.getMessage());
+            }
         }
     }
     private void infoBox(String infoMessage, String titleBar) {
@@ -319,8 +334,9 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<DamageRecord> lstDamageRecords;
-    private javax.swing.JTextField txtDescription;
+    private javax.swing.JTextArea txtDescription;
     private javax.swing.JTextField txtStaffID;
     private javax.swing.JTextField txtStaffName;
     // End of variables declaration//GEN-END:variables
