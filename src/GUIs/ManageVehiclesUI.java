@@ -5,21 +5,20 @@
  */
 package GUIs;
 
+import commands.CommandTracker;
+import commands.interfaces.ICommandWatcher;
 import data.Datastore;
-import other.Utils;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import models.AllocationRecord;
 import models.Car;
-import models.Service;
 
 /**
  *
  * @author Admin
  */
-public class ManageVehiclesUI extends javax.swing.JPanel {
+public class ManageVehiclesUI extends javax.swing.JPanel implements ICommandWatcher {
 
     /**
      * Creates new form ManageVehiclesUI
@@ -29,6 +28,23 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         
         dpCurrentDate.setDate(new Date());
         RefreshList();
+        CommandTracker.addCommandWatcher(this);
+    }
+
+    /**
+     * ICommandWatcher Callback.
+     */
+    @Override
+    public void notifyCommandWatcher()
+    {
+        RefreshList();
+        if(listManageVehicles.getSelectedIndex() != -1)
+        {
+            vehicleDetailsPanel1.loadCarInfo(listManageVehicles.getSelectedValue(),listManageVehicles);
+            manageAllocationHistoryPanel.RefreshAllocationRecordList(listManageVehicles.getSelectedValue());
+            manageServiceHistoryPanel.RefreshServiceListModel(listManageVehicles.getSelectedValue());
+            manageDamageHistoryPanel.RefreshList(listManageVehicles.getSelectedValue());
+        }
     }
 
     /**
@@ -43,7 +59,6 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         listManageVehicles = new javax.swing.JList<>();
         vehicleDetailsPanel1 = new GUIs.VehicleDetailsPanel();
-        btnForceRefresh = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         dpCurrentDate = new org.jdesktop.swingx.JXDatePicker();
         tabs = new javax.swing.JTabbedPane();
@@ -59,13 +74,6 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
             }
         });
         jScrollPane4.setViewportView(listManageVehicles);
-
-        btnForceRefresh.setText("Force Refresh");
-        btnForceRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnForceRefreshActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("For Date:");
 
@@ -89,7 +97,6 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                     .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnForceRefresh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -109,9 +116,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dpCurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnForceRefresh))
+                            .addComponent(jLabel4)))
                     .addComponent(vehicleDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,10 +136,6 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
 
     
     
-    private void btnForceRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceRefreshActionPerformed
-        RefreshList();
-    }//GEN-LAST:event_btnForceRefreshActionPerformed
-
     private void dpCurrentDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpCurrentDateActionPerformed
         RefreshList();
     }//GEN-LAST:event_dpCurrentDateActionPerformed
@@ -158,7 +159,6 @@ public class ManageVehiclesUI extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnForceRefresh;
     private org.jdesktop.swingx.JXDatePicker dpCurrentDate;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane4;

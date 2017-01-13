@@ -41,7 +41,6 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane2" pref="360" max="32767" attributes="0"/>
                           <Component id="staffDetailsPanel1" pref="0" max="32767" attributes="0"/>
-                          <Component id="btnForceRefresh" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -53,14 +52,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnForceRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lstLocation" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" pref="71" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="lstLocation" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" pref="74" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -147,15 +145,10 @@
     </Component>
     <Component class="GUIs.VehicleDetailsPanel" name="vehicleDetailsPanel1">
     </Component>
-    <Component class="javax.swing.JButton" name="btnForceRefresh">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Force Refresh Lists"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnForceRefreshActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="org.jdesktop.swingx.JXDatePicker" name="dpStartDate">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dpStartDateActionPerformed"/>
+      </Events>
     </Component>
     <Component class="org.jdesktop.swingx.JXDatePicker" name="dpEndDate">
     </Component>

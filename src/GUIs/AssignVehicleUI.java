@@ -8,6 +8,7 @@ package GUIs;
 import commands.Command;
 import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
+import commands.interfaces.ICommandWatcher;
 import commands.vehicleManagement.AddAllocationRecord;
 import data.Datastore;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import models.Staff;
  *
  * @author Admin
  */
-public class AssignVehicleUI extends javax.swing.JPanel {
+public class AssignVehicleUI extends javax.swing.JPanel implements ICommandWatcher {
 
     CommandTracker cmdTracker = new CommandTracker();
     private Car selectedCar;
@@ -33,13 +34,21 @@ public class AssignVehicleUI extends javax.swing.JPanel {
      */
     public AssignVehicleUI() {
         initComponents();
-        
         dpStartDate.setDate(new Date());
         
         // --- init locations --- //
         for (CarParks loc : CarParks.values()) {
             lstLocation.addItem(loc);
         }
+        CommandTracker.addCommandWatcher(this);
+    }
+    /**
+     * ICommandWatcher Callback.
+     */
+    @Override
+    public void notifyCommandWatcher()
+    {
+        RefreshLists();
     }
     
     /**
@@ -59,7 +68,6 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         lstLocation = new javax.swing.JComboBox<>();
         staffDetailsPanel1 = new GUIs.StaffDetailsPanel();
         vehicleDetailsPanel1 = new GUIs.VehicleDetailsPanel();
-        btnForceRefresh = new javax.swing.JButton();
         dpStartDate = new org.jdesktop.swingx.JXDatePicker();
         dpEndDate = new org.jdesktop.swingx.JXDatePicker();
         jLabel1 = new javax.swing.JLabel();
@@ -93,10 +101,9 @@ public class AssignVehicleUI extends javax.swing.JPanel {
             }
         });
 
-        btnForceRefresh.setText("Force Refresh Lists");
-        btnForceRefresh.addActionListener(new java.awt.event.ActionListener() {
+        dpStartDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnForceRefreshActionPerformed(evt);
+                dpStartDateActionPerformed(evt);
             }
         });
 
@@ -129,21 +136,19 @@ public class AssignVehicleUI extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                            .addComponent(staffDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(btnForceRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(staffDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnForceRefresh)
-                    .addComponent(lstLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lstLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dpStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,9 +233,9 @@ public class AssignVehicleUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_lstStaffMembersValueChanged
 
-    private void btnForceRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceRefreshActionPerformed
+    private void dpStartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpStartDateActionPerformed
         RefreshLists();
-    }//GEN-LAST:event_btnForceRefreshActionPerformed
+    }//GEN-LAST:event_dpStartDateActionPerformed
     private void RefreshLists()
     {
         ArrayList<Car> carList = Datastore.GetCars();
@@ -266,7 +271,6 @@ public class AssignVehicleUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignVehicle;
-    private javax.swing.JButton btnForceRefresh;
     private org.jdesktop.swingx.JXDatePicker dpEndDate;
     private org.jdesktop.swingx.JXDatePicker dpStartDate;
     private javax.swing.JLabel jLabel1;

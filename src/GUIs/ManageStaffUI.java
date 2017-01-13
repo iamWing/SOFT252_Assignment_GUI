@@ -7,6 +7,7 @@ package GUIs;
 
 import commands.CommandTracker;
 import commands.interfaces.ICommandTracker;
+import commands.interfaces.ICommandWatcher;
 import data.Datastore;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +19,7 @@ import models.Staff;
  *
  * @author Admin
  */
-public class ManageStaffUI extends javax.swing.JPanel {
+public class ManageStaffUI extends javax.swing.JPanel implements ICommandWatcher {
     private ICommandTracker UndoHistory;
 
     /**
@@ -29,6 +30,15 @@ public class ManageStaffUI extends javax.swing.JPanel {
         initComponents();
         
         dpCurrentDate.setDate(new Date());
+        RefreshList();
+        CommandTracker.addCommandWatcher(this);
+    }
+    /**
+     * ICommandWatcher Callback.
+     */
+    @Override
+    public void notifyCommandWatcher()
+    {
         RefreshList();
     }
 
@@ -47,7 +57,6 @@ public class ManageStaffUI extends javax.swing.JPanel {
         jScrollPane6 = new javax.swing.JScrollPane();
         listManageStaffMembers = new javax.swing.JList<>();
         staffDetailsPanel1 = new GUIs.StaffDetailsPanel();
-        forceRefreshButton = new javax.swing.JButton();
         dpCurrentDate = new org.jdesktop.swingx.JXDatePicker();
         jLabel1 = new javax.swing.JLabel();
 
@@ -61,13 +70,6 @@ public class ManageStaffUI extends javax.swing.JPanel {
             }
         });
         jScrollPane6.setViewportView(listManageStaffMembers);
-
-        forceRefreshButton.setText("Force Refresh");
-        forceRefreshButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                forceRefreshButtonActionPerformed(evt);
-            }
-        });
 
         dpCurrentDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,33 +91,29 @@ public class ManageStaffUI extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dpCurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(forceRefreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel42)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(dpCurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(staffDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(staffDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dpCurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(forceRefreshButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel42)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -143,12 +141,6 @@ public class ManageStaffUI extends javax.swing.JPanel {
         
     }//GEN-LAST:event_listManageStaffMembersValueChanged
 
-    private void forceRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forceRefreshButtonActionPerformed
-        // TODO add your handling code here:
-        RefreshList();
-        
-    }//GEN-LAST:event_forceRefreshButtonActionPerformed
-
     private void dpCurrentDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpCurrentDateActionPerformed
         RefreshList();
     }//GEN-LAST:event_dpCurrentDateActionPerformed
@@ -170,7 +162,6 @@ public class ManageStaffUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXDatePicker dpCurrentDate;
-    private javax.swing.JButton forceRefreshButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JScrollPane jScrollPane6;
