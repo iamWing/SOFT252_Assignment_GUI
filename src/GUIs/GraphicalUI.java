@@ -6,19 +6,20 @@
 package GUIs;
 
 import commands.CommandTracker;
-import commands.interfaces.ICommandTracker;
-import commands.vehicleManagement.AddVehicle;
+import commands.interfaces.ICommandWatcher;
 import data.Datastore;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
  *
  * @author Fairymental
  */
-public class GraphicalUI extends javax.swing.JFrame {
+public class GraphicalUI extends javax.swing.JFrame implements ICommandWatcher{
 
-    private ICommandTracker UndoHistory;
+    private CommandTracker UndoHistory;
     /**
      * Creates new form GraphicalUI, Loading the specified database.
      */
@@ -26,6 +27,16 @@ public class GraphicalUI extends javax.swing.JFrame {
         Datastore.LoadDatastore(fileName);
         UndoHistory = new CommandTracker();
         initComponents();
+        CommandTracker.addCommandWatcher(this);
+    }
+    /**
+     * ICommandWatcher Callback.
+     */
+    @Override
+    public void notifyCommandWatcher()
+    {
+        menuEditUndo.setEnabled(UndoHistory.HasUndoHistory());
+        menuEditRedo.setEnabled(UndoHistory.HasRedoHistory());
     }
     
     /**
@@ -54,6 +65,8 @@ public class GraphicalUI extends javax.swing.JFrame {
         menuChangeDatabase = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        menuEditUndo = new javax.swing.JMenuItem();
+        menuEditRedo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -92,6 +105,27 @@ public class GraphicalUI extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+
+        menuEditUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        menuEditUndo.setText("Undo");
+        menuEditUndo.setEnabled(false);
+        menuEditUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEditUndoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuEditUndo);
+
+        menuEditRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        menuEditRedo.setText("Redo");
+        menuEditRedo.setEnabled(false);
+        menuEditRedo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEditRedoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuEditRedo);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -139,6 +173,22 @@ public class GraphicalUI extends javax.swing.JFrame {
         Datastore.Save();
         System.exit(0);
     }//GEN-LAST:event_menuExitActionPerformed
+
+    private void menuEditUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditUndoActionPerformed
+        try {
+            UndoHistory.undoLastCommand();
+        } catch (Exception ex) {
+            Logger.getLogger(GraphicalUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuEditUndoActionPerformed
+
+    private void menuEditRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditRedoActionPerformed
+        try {
+            UndoHistory.redoLastCommand();
+        } catch (Exception ex) {
+            Logger.getLogger(GraphicalUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuEditRedoActionPerformed
     
     /**
      * @param args the command line arguments
@@ -186,6 +236,8 @@ public class GraphicalUI extends javax.swing.JFrame {
     private GUIs.ManageStaffUI manageStaffUI1;
     private GUIs.ManageVehiclesUI manageVehiclesUI2;
     private javax.swing.JMenuItem menuChangeDatabase;
+    private javax.swing.JMenuItem menuEditRedo;
+    private javax.swing.JMenuItem menuEditUndo;
     private javax.swing.JMenuItem menuExit;
     // End of variables declaration//GEN-END:variables
 }
