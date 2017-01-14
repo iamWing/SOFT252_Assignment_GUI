@@ -10,6 +10,7 @@ import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.RemoveAllocationRecord;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.DefaultListModel;
 import models.AllocationRecord;
 import models.Car;
@@ -114,7 +115,7 @@ public class ManageAllocationHistoryPanel extends javax.swing.JPanel {
     {
         currentCar = car;
         ArrayList<AllocationRecord> records = car.getAllocationRecords();
-        System.out.println(records.size() + " ");
+        Collections.sort(records, new CustomComparator());
         DefaultListModel<AllocationRecord> model = new DefaultListModel<>();
         for(AllocationRecord rec : records)
         {

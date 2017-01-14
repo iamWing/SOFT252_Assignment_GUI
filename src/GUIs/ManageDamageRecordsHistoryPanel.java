@@ -7,6 +7,7 @@ import commands.vehicleManagement.AddDamageRecord;
 import commands.vehicleManagement.RemoveDamageRecord;
 import data.Datastore;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -280,7 +281,7 @@ public class ManageDamageRecordsHistoryPanel extends javax.swing.JPanel {
     {
         currentCar = car;
         ArrayList<DamageRecord> records = car.getDamageRecords();
-        System.out.println(records.size() + " ");
+        Collections.sort(records, new CustomComparator());
         DefaultListModel<DamageRecord> model = new DefaultListModel<>();
         for(DamageRecord rec : records)
         {

@@ -11,6 +11,7 @@ import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.AddService;
 import commands.vehicleManagement.RemoveService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import models.Car;
@@ -190,6 +191,7 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
             try
             {
                 ArrayList<Service> serviceHistory = currentCar.getServiceRecords();
+                Collections.sort(serviceHistory, new CustomComparator());
                 DefaultListModel<Service> model = new DefaultListModel<>();
                 for( Service serv : serviceHistory)
                 {

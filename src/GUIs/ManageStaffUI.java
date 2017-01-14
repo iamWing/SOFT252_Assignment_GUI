@@ -10,6 +10,7 @@ import commands.interfaces.ICommandTracker;
 import commands.interfaces.ICommandWatcher;
 import data.Datastore;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import models.AllocationRecord;
@@ -147,6 +148,7 @@ public class ManageStaffUI extends javax.swing.JPanel implements ICommandWatcher
     private void RefreshList()
     {
         ArrayList<Staff> staffList = Datastore.GetStaff();
+        Collections.sort(staffList, new CustomComparator());
         DefaultListModel<Staff> model = new DefaultListModel<>();
         for( Staff staff : staffList)
         {

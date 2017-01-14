@@ -12,6 +12,7 @@ import commands.interfaces.ICommandWatcher;
 import commands.vehicleManagement.AddAllocationRecord;
 import data.Datastore;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -239,6 +240,7 @@ public class AssignVehicleUI extends javax.swing.JPanel implements ICommandWatch
     private void RefreshLists()
     {
         ArrayList<Car> carList = Datastore.GetCars();
+        Collections.sort(carList, new CustomComparator());
         DefaultListModel<Car> model = new DefaultListModel<>();
         for( Car car : carList)
         {
@@ -251,6 +253,7 @@ public class AssignVehicleUI extends javax.swing.JPanel implements ICommandWatch
         lstVehicles.setModel(model);
         
         ArrayList<Staff> staffList = Datastore.GetStaff();
+        Collections.sort(staffList, new CustomComparator());
         DefaultListModel<Staff> modelStaff = new DefaultListModel<>();
         for( Staff staff : staffList)
         {

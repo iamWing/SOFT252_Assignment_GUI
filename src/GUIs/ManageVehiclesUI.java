@@ -9,6 +9,7 @@ import commands.CommandTracker;
 import commands.interfaces.ICommandWatcher;
 import data.Datastore;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -137,6 +138,7 @@ public class ManageVehiclesUI extends javax.swing.JPanel implements ICommandWatc
     private void RefreshList()
     {
         ArrayList<Car> carList = Datastore.GetCars();
+        Collections.sort(carList, new CustomComparator());
         DefaultListModel<Car> model = new DefaultListModel<>();
         for( Car car : carList)
         {
