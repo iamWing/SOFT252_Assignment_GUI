@@ -37,14 +37,9 @@ public class ManageVehiclesUI extends javax.swing.JPanel implements ICommandWatc
     @Override
     public void notifyCommandWatcher()
     {
+        int pos = listManageVehicles.getSelectedIndex();
         RefreshList();
-        if(listManageVehicles.getSelectedIndex() != -1)
-        {
-            vehicleDetailsPanel1.loadCarInfo(listManageVehicles.getSelectedValue(),listManageVehicles);
-            manageAllocationHistoryPanel.RefreshAllocationRecordList(listManageVehicles.getSelectedValue());
-            manageServiceHistoryPanel.RefreshServiceListModel(listManageVehicles.getSelectedValue());
-            manageDamageHistoryPanel.RefreshList(listManageVehicles.getSelectedValue());
-        }
+        listManageVehicles.setSelectedIndex(pos);
     }
 
     /**
