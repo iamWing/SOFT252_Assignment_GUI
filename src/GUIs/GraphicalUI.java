@@ -55,6 +55,7 @@ public class GraphicalUI extends javax.swing.JFrame implements ICommandWatcher{
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         assignVehicleUI2 = new GUIs.AssignVehicleUI();
         manageStaffUI1 = new GUIs.ManageStaffUI();
@@ -81,6 +82,8 @@ public class GraphicalUI extends javax.swing.JFrame implements ICommandWatcher{
         jScrollPane1.setViewportView(manageVehiclesUI2);
 
         jTabbedPane2.addTab("Manage Vehicles", jScrollPane1);
+
+        jScrollPane2.setViewportView(jTabbedPane2);
 
         jMenu1.setText("File");
 
@@ -134,17 +137,11 @@ public class GraphicalUI extends javax.swing.JFrame implements ICommandWatcher{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1061, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1081, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
         );
 
         pack();
@@ -231,6 +228,7 @@ public class GraphicalUI extends javax.swing.JFrame implements ICommandWatcher{
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private GUIs.ManageStaffUI manageStaffUI1;
