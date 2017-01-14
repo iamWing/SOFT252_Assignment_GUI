@@ -9,6 +9,7 @@ import commands.Command;
 import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
 import commands.staffMamagement.AddStaff;
+import commands.staffMamagement.EditStaff;
 import commands.staffMamagement.RemoveStaff;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -197,7 +198,6 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         {
             cmdTracker.executeCommand(cmd);
             clearStaffInfo();
-            infoBox("Staff added succesfully.", "Operation succesful");
         } catch(Exception ex)
         {
             System.err.print(ex.getMessage());
@@ -206,29 +206,16 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         
-        ICommandBehavior cmdBehavior = new RemoveStaff(selectedStaff);
+        ICommandBehavior cmdBehavior = new EditStaff(selectedStaff.getSTAFFID(),selectedStaff.getForeName(),selectedStaff.getLastName(),selectedStaff.getAddress(),selectedStaff.getLicenseNumber(),selectedStaff.getLicenseType());
         Command cmd = new Command (cmdBehavior);
         
         try
         {
             cmdTracker.executeCommand(cmd);
             selectedStaff = null;
-        }catch(Exception ex)
-        {
-            System.err.print(ex.getMessage());
-        }
-        
-        cmdBehavior = new AddStaff(createStaffFromTextBoxes());
-        cmd = new Command (cmdBehavior);
-        
-        try
-        {
-            cmdTracker.executeCommand(cmd);
             clearStaffInfo();
-            selectedStaff = null;
             disableSaveButton();
             disableDeleteButton();
-            infoBox("Staff information updated.", "Operation successful");
         }catch(Exception ex)
         {
             System.err.print(ex.getMessage());

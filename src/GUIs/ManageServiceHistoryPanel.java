@@ -9,6 +9,7 @@ import commands.Command;
 import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
 import commands.vehicleManagement.AddService;
+import commands.vehicleManagement.EditService;
 import commands.vehicleManagement.RemoveService;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +25,7 @@ import models.Service;
 public class ManageServiceHistoryPanel extends javax.swing.JPanel {
 
     Car currentCar;
-    
+    Service currentService;
     CommandTracker cmdTracker = new CommandTracker();
     
     /**
@@ -172,8 +173,15 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteServiceActionPerformed
 
     private void btnSaveServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveServiceActionPerformed
-        addServiceToCar();
-        removeServiceFromCar(listService.getSelectedValue());      
+        try
+        {
+            ICommandBehavior cmdBehavior = new EditService(currentService, currentService.getInDate(),currentService.getOutDate(),currentService.getDescription());
+            Command cmd = new Command(cmdBehavior);
+            cmdTracker.executeCommand(cmd);
+        }catch(Exception ex)
+        {
+            System.err.println(ex.getMessage());
+        }    
         clearServiceInfo();
         RefreshServiceListModel(currentCar);
     }//GEN-LAST:event_btnSaveServiceActionPerformed
@@ -182,6 +190,11 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
         if(listService.getSelectedIndex() != -1)
         {
             loadServiceInfo(listService.getSelectedValue());
+            currentService = listService.getSelectedValue();
+        }
+        else
+        {
+            currentService = null;
         }
     }//GEN-LAST:event_listServiceValueChanged
     public void RefreshServiceListModel(Car car)
