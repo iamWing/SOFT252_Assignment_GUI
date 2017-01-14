@@ -247,6 +247,7 @@ public class AssignVehicleUI extends javax.swing.JPanel implements ICommandWatch
             if(car.isAvailable(dpStartDate.getDate()) && car.getLocation() == lstLocation.getSelectedItem())
                 model.addElement(car);
         }
+        lstVehicles.setCellRenderer( new CustomCellRenderer(dpStartDate.getDate()));
         lstVehicles.setModel(model);
         
         ArrayList<Staff> staffList = Datastore.GetStaff();
@@ -255,6 +256,7 @@ public class AssignVehicleUI extends javax.swing.JPanel implements ICommandWatch
         {
             modelStaff.addElement(staff);
         }
+        lstStaffMembers.setCellRenderer( new CustomCellRenderer(dpStartDate.getDate()));
         lstStaffMembers.setModel(modelStaff);
     }
     private void EnableAssignVehicleButton()
