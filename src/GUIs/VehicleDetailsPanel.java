@@ -70,6 +70,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtInsuranceEnd.setDate(selectedVehicle.getInsurance().getEndDate());
         txtNumberSeats.setText(String.valueOf(selectedVehicle.getSeats()));
         cbParkLoc.setSelectedItem(selectedVehicle.getLocation());
+        ckOutOfService.setSelected(selectedVehicle.isDamaged());
 
         disableSaveButton();
         enableDeleteButton();
@@ -85,6 +86,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtInsuranceNumber.setText("");
         txtNumberSeats.setText("");
         cbParkLoc.setSelectedItem(CarParks.CarPark01);
+        ckOutOfService.setSelected(false);
     }
 
     /**
@@ -120,6 +122,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtInsuranceStart = new org.jdesktop.swingx.JXDatePicker();
         txtInsuranceEnd = new org.jdesktop.swingx.JXDatePicker();
         cbParkLoc = new javax.swing.JComboBox<>();
+        ckOutOfService = new javax.swing.JCheckBox();
 
         jLabel18.setText("Description:");
 
@@ -222,6 +225,13 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             }
         });
 
+        ckOutOfService.setText("Out of service");
+        ckOutOfService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckOutOfServiceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -265,7 +275,10 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescription)))
+                        .addComponent(txtDescription))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ckOutOfService)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -313,11 +326,13 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                     .addComponent(jLabel18)
                     .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ckOutOfService)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
                     .addComponent(btnAdd)
                     .addComponent(btnSave))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -413,6 +428,10 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         enableSaveButton();
     }//GEN-LAST:event_cbParkLocActionPerformed
 
+    private void ckOutOfServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckOutOfServiceActionPerformed
+        enableSaveButton();
+    }//GEN-LAST:event_ckOutOfServiceActionPerformed
+
     public void enableSaveButton() {
         btnSave.setEnabled(true);
     }
@@ -460,7 +479,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         }
 
         tempCar = new Car(carID, carBrand, carModel, carNumberSeats, carLoc, carDescription);
-        
+        tempCar.setDamaged(ckOutOfService.isSelected());
+
         Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(), txtInsuranceEnd.getDate());
         tempCar.setInsurance(tempInsurance);
         return tempCar;
@@ -486,6 +506,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<CarParks> cbParkLoc;
+    private javax.swing.JCheckBox ckOutOfService;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
