@@ -43,18 +43,15 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         {
             public void changedUpdate (DocumentEvent e)
             {
-                if(selectedCar != null)
-                    enableSaveButton();
+                updateButtons();
             }
             public void removeUpdate (DocumentEvent e)
             {
-                if(selectedCar != null)
-                    enableSaveButton();
+                updateButtons();
             }
             public void insertUpdate (DocumentEvent e)
             {
-                if(selectedCar != null)
-                    enableSaveButton();
+                updateButtons();
             }
         };
 
@@ -85,10 +82,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtNumberSeats.setText(String.valueOf(selectedVehicle.getSeats()));
         cbParkLoc.setSelectedItem(selectedVehicle.getLocation());
         ckOutOfService.setSelected(selectedVehicle.isDamaged());
-
-        disableSaveButton();
-        enableDeleteButton();
         selectedCar = selectedVehicle;
+        updateButtons();
     }
 
     public void clearCarInfo() {
@@ -101,6 +96,13 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtNumberSeats.setText("");
         cbParkLoc.setSelectedItem(CarParks.CarPark01);
         ckOutOfService.setSelected(false);
+    }
+    private void updateButtons()
+    {
+        if(selectedCar != null)
+            enableSaveButton();
+        else
+            disableSaveButton();
     }
 
     /**
@@ -194,12 +196,6 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtInsuranceEnd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtInsuranceEndActionPerformed(evt);
-            }
-        });
-
-        cbParkLoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbParkLocActionPerformed(evt);
             }
         });
 
@@ -371,19 +367,15 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtInsuranceStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInsuranceStartActionPerformed
-        enableSaveButton();
+        updateButtons();
     }//GEN-LAST:event_txtInsuranceStartActionPerformed
 
     private void txtInsuranceEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInsuranceEndActionPerformed
-        enableSaveButton();
+        updateButtons();
     }//GEN-LAST:event_txtInsuranceEndActionPerformed
 
-    private void cbParkLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbParkLocActionPerformed
-        enableSaveButton();
-    }//GEN-LAST:event_cbParkLocActionPerformed
-
     private void ckOutOfServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckOutOfServiceActionPerformed
-        enableSaveButton();
+        updateButtons();
     }//GEN-LAST:event_ckOutOfServiceActionPerformed
 
     public void enableSaveButton() {
@@ -452,6 +444,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             model.addElement(car);
         }
         vehicleList.setModel(model);
+        updateButtons();
     }
 
 
