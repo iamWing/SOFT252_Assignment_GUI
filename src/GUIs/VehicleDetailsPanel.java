@@ -8,12 +8,11 @@ package GUIs;
 import commands.Command;
 import commands.CommandTracker;
 import commands.interfaces.ICommandBehavior;
-import commands.vehicleManagement.AddInsurance;
 import commands.vehicleManagement.AddVehicle;
+import commands.vehicleManagement.EditVehicle;
 import commands.vehicleManagement.RemoveVehicle;
 import data.Datastore;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -21,6 +20,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import models.Car;
 import models.CarParks;
+import models.Insurance;
 
 /**
  *
@@ -139,11 +139,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
         jLabel14.setText("Car Brand:");
 
-        txtCarID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCarIDActionPerformed(evt);
-            }
-        });
+        txtCarID.setEnabled(false);
 
         jLabel15.setText("Insurance");
 
@@ -156,6 +152,12 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtNumberSeats.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumberSeatsActionPerformed(evt);
+            }
+        });
+
+        txtParkLoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtParkLocActionPerformed(evt);
             }
         });
 
@@ -196,6 +198,18 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             }
         });
 
+        txtInsuranceCompany.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInsuranceCompanyActionPerformed(evt);
+            }
+        });
+
+        txtInsuranceNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInsuranceNumberActionPerformed(evt);
+            }
+        });
+
         jLabel22.setText("Company Name:");
 
         jLabel23.setText("Number:");
@@ -203,6 +217,18 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         jLabel24.setText("Start Date:");
 
         jLabel25.setText("End Date:");
+
+        txtInsuranceStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInsuranceStartActionPerformed(evt);
+            }
+        });
+
+        txtInsuranceEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInsuranceEndActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -303,16 +329,12 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCarIDActionPerformed
-
     private void txtCarBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarBrandActionPerformed
-        // TODO add your handling code here:
+        enableSaveButton();
     }//GEN-LAST:event_txtCarBrandActionPerformed
 
     private void txtNumberSeatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumberSeatsActionPerformed
-        // TODO add your handling code here:
+        enableSaveButton();
     }//GEN-LAST:event_txtNumberSeatsActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -331,12 +353,15 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarModelActionPerformed
-        // TODO add your handling code here:
+        enableSaveButton();
     }//GEN-LAST:event_txtCarModelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        ICommandBehavior cmdBehavior = new RemoveVehicle(selectedCar);
+        Car newDetails = createCarFromTextBoxes();
+        ICommandBehavior cmdBehavior = new EditVehicle(newDetails.getCARID(), newDetails.getBrand(),
+                newDetails.getModel(), newDetails.getSeats(), newDetails.getDescription(),
+                newDetails.getLocation(), newDetails.getInsurance(), newDetails.isDamaged());
         Command cmd = new Command(cmdBehavior);
         
         try
@@ -348,22 +373,6 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         {
             System.err.print(ex.getMessage());
         }
-        
-        cmdBehavior = new AddVehicle(createCarFromTextBoxes());
-        cmd = new Command(cmdBehavior);
-
-        try {
-            cmdTracker.executeCommand(cmd);
-            clearCarInfo();
-            selectedCar = null;
-            disableSaveButton();
-            disableDeleteButton();
-            RefreshCarList();
-            infoBox("Car information updated.", "Operation successful");
-        } catch (Exception ex) {
-            System.err.print(ex.getMessage());
-        }
-        
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -388,6 +397,26 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void txtInsuranceStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInsuranceStartActionPerformed
+        enableSaveButton();
+    }//GEN-LAST:event_txtInsuranceStartActionPerformed
+
+    private void txtInsuranceEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInsuranceEndActionPerformed
+        enableSaveButton();
+    }//GEN-LAST:event_txtInsuranceEndActionPerformed
+
+    private void txtInsuranceNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInsuranceNumberActionPerformed
+        enableSaveButton();
+    }//GEN-LAST:event_txtInsuranceNumberActionPerformed
+
+    private void txtInsuranceCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInsuranceCompanyActionPerformed
+        enableSaveButton();
+    }//GEN-LAST:event_txtInsuranceCompanyActionPerformed
+
+    private void txtParkLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtParkLocActionPerformed
+        enableSaveButton();
+    }//GEN-LAST:event_txtParkLocActionPerformed
 
     public void enableSaveButton() {
         btnSave.setEnabled(true);
@@ -432,20 +461,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
         tempCar = new Car(carID, carBrand, carModel, carNumberSeats, carLoc, carDescription);
         
-        ICommandBehavior cmdBehavior = new AddInsurance(tempCar,carInsuranceCompany,carInsuranceNumber,txtInsuranceStart.getDate(),txtInsuranceEnd.getDate());
-        Command cmd = new Command(cmdBehavior);
-        
-        try
-        {
-            cmdTracker.executeCommand(cmd);
-        }catch(Exception ex)
-        {
-            System.err.print(ex.getMessage());
-        }
-        
-        
- //       Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(), txtInsuranceEnd.getDate(), tempCar);
- //       tempCar.setInsurance(tempInsurance);
+        Insurance tempInsurance = new Insurance(carInsuranceCompany, carInsuranceNumber, txtInsuranceStart.getDate(), txtInsuranceEnd.getDate());
+        tempCar.setInsurance(tempInsurance);
         return tempCar;
     }
 
