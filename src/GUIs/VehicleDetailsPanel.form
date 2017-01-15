@@ -162,14 +162,8 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCarBrand">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCarBrandActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNumberSeats">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNumberSeatsActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
@@ -177,9 +171,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDescription">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDescriptionActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAdd">
       <Properties>
@@ -223,19 +214,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCarModel">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCarModelActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtInsuranceCompany">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtInsuranceCompanyActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtInsuranceNumber">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtInsuranceNumberActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel22">
       <Properties>
