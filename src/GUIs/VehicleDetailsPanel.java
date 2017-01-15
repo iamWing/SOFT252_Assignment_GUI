@@ -39,22 +39,6 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
     public VehicleDetailsPanel() {
         initComponents();
-        documentListener = new DocumentListener()
-        {
-            public void changedUpdate (DocumentEvent e)
-            {
-                warn();
-            }
-            public void removeUpdate (DocumentEvent e)
-            {
-                warn();
-            }
-            public void insertUpdate (DocumentEvent e)
-            {
-                warn();
-            }
-        };
-        
         txtCarBrand.getDocument().addDocumentListener(documentListener);
         txtCarModel.getDocument().addDocumentListener(documentListener);
         txtCarID.getDocument().addDocumentListener(documentListener);
@@ -62,7 +46,9 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtInsuranceCompany.getDocument().addDocumentListener(documentListener);
         txtInsuranceNumber.getDocument().addDocumentListener(documentListener);
         txtNumberSeats.getDocument().addDocumentListener(documentListener);
-        txtParkLoc.getDocument().addDocumentListener(documentListener);
+        for (CarParks loc : CarParks.values()) {
+            cbParkLoc.addItem(loc);
+        }
         
     }
 
@@ -83,7 +69,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtInsuranceStart.setDate(selectedVehicle.getInsurance().getStartDate());
         txtInsuranceEnd.setDate(selectedVehicle.getInsurance().getEndDate());
         txtNumberSeats.setText(String.valueOf(selectedVehicle.getSeats()));
-        txtParkLoc.setText(selectedVehicle.getLocation().toString());
+        cbParkLoc.setSelectedItem(selectedVehicle.getLocation());
 
         disableSaveButton();
         enableDeleteButton();
@@ -98,7 +84,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtInsuranceCompany.setText("");
         txtInsuranceNumber.setText("");
         txtNumberSeats.setText("");
-        txtParkLoc.setText("");
+        cbParkLoc.setSelectedItem(CarParks.CarPark01);
     }
 
     /**
@@ -116,7 +102,6 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         txtCarBrand = new javax.swing.JTextField();
         txtNumberSeats = new javax.swing.JTextField();
-        txtParkLoc = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtDescription = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
@@ -134,6 +119,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         jLabel25 = new javax.swing.JLabel();
         txtInsuranceStart = new org.jdesktop.swingx.JXDatePicker();
         txtInsuranceEnd = new org.jdesktop.swingx.JXDatePicker();
+        cbParkLoc = new javax.swing.JComboBox<>();
 
         jLabel18.setText("Description:");
 
@@ -155,13 +141,13 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             }
         });
 
-        txtParkLoc.addActionListener(new java.awt.event.ActionListener() {
+        jLabel13.setText("Car ID:");
+
+        txtDescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtParkLocActionPerformed(evt);
+                txtDescriptionActionPerformed(evt);
             }
         });
-
-        jLabel13.setText("Car ID:");
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +176,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
         jLabel20.setText("Nr. seats:");
 
-        jLabel21.setText("Park Loc.:");
+        jLabel21.setText("Location:");
 
         txtCarModel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,6 +213,12 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtInsuranceEnd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtInsuranceEndActionPerformed(evt);
+            }
+        });
+
+        cbParkLoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbParkLocActionPerformed(evt);
             }
         });
 
@@ -269,7 +261,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                             .addComponent(txtCarBrand)
                             .addComponent(txtCarModel)
                             .addComponent(txtNumberSeats)
-                            .addComponent(txtParkLoc, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(cbParkLoc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -297,9 +289,9 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtParkLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbParkLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(txtInsuranceCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,7 +317,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                     .addComponent(btnDelete)
                     .addComponent(btnAdd)
                     .addComponent(btnSave))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -367,7 +359,6 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         try
         {
             cmdTracker.executeCommand(cmd);
-            selectedCar = null;
             
         }catch(Exception ex)
         {
@@ -414,9 +405,13 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         enableSaveButton();
     }//GEN-LAST:event_txtInsuranceCompanyActionPerformed
 
-    private void txtParkLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtParkLocActionPerformed
+    private void txtDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescriptionActionPerformed
         enableSaveButton();
-    }//GEN-LAST:event_txtParkLocActionPerformed
+    }//GEN-LAST:event_txtDescriptionActionPerformed
+
+    private void cbParkLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbParkLocActionPerformed
+        enableSaveButton();
+    }//GEN-LAST:event_cbParkLocActionPerformed
 
     public void enableSaveButton() {
         btnSave.setEnabled(true);
@@ -438,7 +433,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         Car tempCar;
         String carBrand = "N/A", carModel = "N/A", carID = "N/A", carDescription = "N/A", carInsuranceCompany = "N/A", carInsuranceNumber = "N/A";
         int carNumberSeats = 0;
-        CarParks carLoc = CarParks.CarPark01;
+        CarParks carLoc = (CarParks) cbParkLoc.getSelectedItem();
 
         if (!txtCarBrand.getText().isEmpty()) {
             carBrand = txtCarBrand.getText();
@@ -448,6 +443,11 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         }
         if (!txtCarID.getText().isEmpty()) {
             carID = txtCarID.getText();
+        }
+        if (!txtNumberSeats.getText().isEmpty()) {
+            try {
+            carNumberSeats = Integer.parseInt(txtNumberSeats.getText());
+            } catch (Exception e) {}
         }
         if (!txtDescription.getText().isEmpty()) {
             carDescription = txtDescription.getText();
@@ -485,6 +485,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<CarParks> cbParkLoc;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -505,6 +506,5 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtInsuranceNumber;
     private org.jdesktop.swingx.JXDatePicker txtInsuranceStart;
     private javax.swing.JTextField txtNumberSeats;
-    private javax.swing.JTextField txtParkLoc;
     // End of variables declaration//GEN-END:variables
 }
