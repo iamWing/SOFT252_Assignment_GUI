@@ -175,7 +175,7 @@ public class ManageServiceHistoryPanel extends javax.swing.JPanel {
     private void btnSaveServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveServiceActionPerformed
         try
         {
-            ICommandBehavior cmdBehavior = new EditService(currentService, currentService.getInDate(),currentService.getOutDate(),currentService.getDescription());
+            ICommandBehavior cmdBehavior = new EditService(currentService, dpInDate.getDate(),dpOutDate.getDate(),txtDescription.getText());
             Command cmd = new Command(cmdBehavior);
             cmdTracker.executeCommand(cmd);
         }catch(Exception ex)
