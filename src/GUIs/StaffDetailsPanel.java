@@ -206,7 +206,8 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         
-        ICommandBehavior cmdBehavior = new EditStaff(selectedStaff.getSTAFFID(),selectedStaff.getForeName(),selectedStaff.getLastName(),selectedStaff.getAddress(),selectedStaff.getLicenseNumber(),selectedStaff.getLicenseType());
+        Staff newDetails = createStaffFromTextBoxes();
+        ICommandBehavior cmdBehavior = new EditStaff(selectedStaff.getSTAFFID(),newDetails.getForeName(),newDetails.getLastName(),newDetails.getAddress(),newDetails.getLicenseNumber(),newDetails.getLicenseType());
         Command cmd = new Command (cmdBehavior);
         
         try
@@ -262,6 +263,14 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
     {
         btnDelete.setEnabled(false);
     }
+    public void enableStaffID()
+    {
+        txtStaffID.setEnabled(true);
+    }
+    public void disableStaffID()
+    {
+        txtStaffID.setEnabled(false);
+    }
     public void clearStaffInfo()
     {
         txtForename.setText("");
@@ -270,6 +279,7 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         txtLicenseType.setText("");
         txtStaffID.setText("");
         txtAdress.setText("");
+        enableStaffID();
     }
     public void loadStaffInfo(Staff tempStaff)
     {
@@ -282,6 +292,7 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         
         disableSaveButton();
         enableDeleteButton();
+        disableStaffID();
         selectedStaff =tempStaff;
     }
     
