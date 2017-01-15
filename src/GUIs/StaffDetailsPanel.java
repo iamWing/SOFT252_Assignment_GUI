@@ -37,15 +37,15 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         {
             public void changedUpdate (DocumentEvent e)
             {
-                warn();
+                updateButtons();
             }
             public void removeUpdate (DocumentEvent e)
             {
-                warn();
+                updateButtons();
             }
             public void insertUpdate (DocumentEvent e)
             {
-                warn();
+                updateButtons();
             }
         };
         txtForename.getDocument().addDocumentListener(documentListener);
@@ -75,7 +75,7 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         txtForename = new javax.swing.JTextField();
         txtStaffID = new javax.swing.JTextField();
         txtLicenseNumber = new javax.swing.JTextField();
-        btnAdd = new javax.swing.JButton();
+        btnNew = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -92,10 +92,10 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
 
         jLabel41.setText("Forename:");
 
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnNew.setText("Add");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnNewActionPerformed(evt);
             }
         });
 
@@ -145,7 +145,7 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
                             .addComponent(txtLicenseType)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -183,26 +183,34 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
+                    .addComponent(btnNew)
                     .addComponent(btnSave)
                     .addComponent(btnDelete))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        ICommandBehavior cmdBehavior = new AddStaff(createStaffFromTextBoxes());
-        Command cmd = new Command (cmdBehavior);
-        
-        try
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        if (selectedStaff != null)
         {
-            cmdTracker.executeCommand(cmd);
             clearStaffInfo();
-        } catch(Exception ex)
-        {
-            System.err.print(ex.getMessage());
+            updateButtons();
         }
-    }//GEN-LAST:event_btnAddActionPerformed
+        else
+        {
+            ICommandBehavior cmdBehavior = new AddStaff(createStaffFromTextBoxes());
+            Command cmd = new Command (cmdBehavior);
+
+            try
+            {
+                cmdTracker.executeCommand(cmd);
+                clearStaffInfo();
+            } catch(Exception ex)
+            {
+                System.err.print(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         
@@ -215,8 +223,7 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
             cmdTracker.executeCommand(cmd);
             selectedStaff = null;
             clearStaffInfo();
-            disableSaveButton();
-            disableDeleteButton();
+            updateButtons();
         }catch(Exception ex)
         {
             System.err.print(ex.getMessage());
@@ -232,9 +239,8 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         try
         {
             cmdTracker.executeCommand(cmd);
-            selectedStaff = null;
             clearStaffInfo();
-            disableDeleteButton();
+            updateButtons();
             
         }catch(Exception ex)
         {
@@ -247,29 +253,12 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     } 
     
-    public void enableSaveButton()
+    public void updateButtons()
     {
-        btnSave.setEnabled(true);
-    }
-    public void disableSaveButton()
-    {
-        btnSave.setEnabled(false);
-    }
-    public void enableDeleteButton()
-    {
-        btnDelete.setEnabled(true);
-    }
-    public void disableDeleteButton()
-    {
-        btnDelete.setEnabled(false);
-    }
-    public void enableStaffID()
-    {
-        txtStaffID.setEnabled(true);
-    }
-    public void disableStaffID()
-    {
-        txtStaffID.setEnabled(false);
+        btnSave.setEnabled(selectedStaff != null);
+        btnDelete.setEnabled(selectedStaff != null);
+        btnNew.setText(selectedStaff != null?"New":"Add");
+        txtStaffID.setEnabled(selectedStaff == null);
     }
     public void clearStaffInfo()
     {
@@ -279,7 +268,8 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         txtLicenseType.setText("");
         txtStaffID.setText("");
         txtAdress.setText("");
-        enableStaffID();
+        selectedStaff=null;
+        updateButtons();
     }
     public void loadStaffInfo(Staff tempStaff)
     {
@@ -289,11 +279,8 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         txtLicenseType.setText(tempStaff.getLicenseType());
         txtStaffID.setText(tempStaff.getSTAFFID());
         txtAdress.setText(tempStaff.getAddress());
-        
-        disableSaveButton();
-        enableDeleteButton();
-        disableStaffID();
         selectedStaff =tempStaff;
+        updateButtons();
     }
     
     private Staff createStaffFromTextBoxes()
@@ -331,17 +318,9 @@ public class StaffDetailsPanel extends javax.swing.JPanel {
         return tempStaff;
     }
     
-    public void warn()
-    {
-        if(selectedStaff != null)
-        {
-            enableSaveButton();
-        }
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel36;
