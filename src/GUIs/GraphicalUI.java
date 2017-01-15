@@ -24,6 +24,7 @@ public class GraphicalUI extends javax.swing.JFrame implements ICommandWatcher{
      * Creates new form GraphicalUI, Loading the specified database.
      */
     public GraphicalUI(String fileName) {
+        this.setTitle("Vehicle Management System");
         Datastore.LoadDatastore(fileName);
         UndoHistory = new CommandTracker();
         initComponents();
