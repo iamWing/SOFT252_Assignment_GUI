@@ -96,6 +96,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtNumberSeats.setText("");
         cbParkLoc.setSelectedItem(CarParks.CarPark01);
         ckOutOfService.setSelected(false);
+        selectedCar=null;
     }
     private void updateButtons()
     {
@@ -103,6 +104,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
             enableSaveButton();
         else
             disableSaveButton();
+        txtCarID.setEnabled(selectedCar == null);
+        btnNew.setText(selectedCar == null?"Add":"New");
     }
 
     /**
@@ -122,7 +125,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
         txtNumberSeats = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtDescription = new javax.swing.JTextField();
-        btnAdd = new javax.swing.JButton();
+        btnNew = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
@@ -144,16 +147,14 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
         jLabel14.setText("Car Brand:");
 
-        txtCarID.setEnabled(false);
-
         jLabel15.setText("Insurance");
 
         jLabel13.setText("Car ID:");
 
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnNew.setText("Add");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnNewActionPerformed(evt);
             }
         });
 
@@ -214,7 +215,7 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -304,26 +305,33 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
-                    .addComponent(btnAdd)
+                    .addComponent(btnNew)
                     .addComponent(btnSave))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        ICommandBehavior cmdBehavior = new AddVehicle(createCarFromTextBoxes());
-        Command cmd = new Command(cmdBehavior);
-
-        try {
-            cmdTracker.executeCommand(cmd);
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        if (selectedCar != null)
+        {
             clearCarInfo();
-            RefreshCarList();
-            infoBox("Car added successfully.", "Operation successful");
-        } catch (Exception ex) {
-            System.err.print(ex.getMessage());
+            updateButtons();
         }
-        
-    }//GEN-LAST:event_btnAddActionPerformed
+        else
+        {
+            ICommandBehavior cmdBehavior = new AddVehicle(createCarFromTextBoxes());
+            Command cmd = new Command(cmdBehavior);
+
+            try {
+                cmdTracker.executeCommand(cmd);
+                clearCarInfo();
+                RefreshCarList();
+                infoBox("Car added successfully.", "Operation successful");
+            } catch (Exception ex) {
+                System.err.print(ex.getMessage());
+            }
+        }        
+    }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
@@ -449,8 +457,8 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<CarParks> cbParkLoc;
     private javax.swing.JCheckBox ckOutOfService;
