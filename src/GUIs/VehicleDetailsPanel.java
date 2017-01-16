@@ -101,9 +101,15 @@ public class VehicleDetailsPanel extends javax.swing.JPanel {
     private void updateButtons()
     {
         if(selectedCar != null)
+        {
             enableSaveButton();
+            enableDeleteButton();
+        }
         else
+        {
             disableSaveButton();
+            disableDeleteButton();
+        }
         txtCarID.setEnabled(selectedCar == null);
         btnNew.setText(selectedCar == null?"Add":"New");
     }
